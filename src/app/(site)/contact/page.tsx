@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { client } from "@/sanity/client";
 import { SETTINGS_QUERY, PAGE_CONTACT_QUERY } from "@/sanity/queries";
 import HeroSection from "@/components/hero-section";
+import ContactForm from "@/components/contact-form";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SA = any;
@@ -96,42 +97,7 @@ export default async function Contact() {
 
           {/* Formulaire */}
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-primary/5">
-              <h2 className="font-serif text-2xl text-primary mb-2">Envoyez-nous un message</h2>
-              <p className="text-charcoal/50 text-sm mb-8">Nous vous r&eacute;pondrons dans les 24 heures.</p>
-              <form className="space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="prenom" className="block text-sm font-medium text-charcoal mb-1.5">Pr&eacute;nom</label>
-                    <input type="text" id="prenom" name="prenom" className="w-full rounded-xl border border-primary/15 bg-cream/30 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all" placeholder="Votre pr\u00e9nom" />
-                  </div>
-                  <div>
-                    <label htmlFor="nom" className="block text-sm font-medium text-charcoal mb-1.5">Nom</label>
-                    <input type="text" id="nom" name="nom" className="w-full rounded-xl border border-primary/15 bg-cream/30 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all" placeholder="Votre nom" />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-charcoal mb-1.5">Email</label>
-                  <input type="email" id="email" name="email" className="w-full rounded-xl border border-primary/15 bg-cream/30 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all" placeholder="votre@email.fr" />
-                </div>
-                <div>
-                  <label htmlFor="sujet" className="block text-sm font-medium text-charcoal mb-1.5">Sujet</label>
-                  <select id="sujet" name="sujet" className="w-full rounded-xl border border-primary/15 bg-cream/30 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all text-charcoal/70">
-                    <option value="">Choisissez un sujet</option>
-                    {sujets.map((s) => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-charcoal mb-1.5">Message</label>
-                  <textarea id="message" name="message" rows={6} className="w-full rounded-xl border border-primary/15 bg-cream/30 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all resize-none" placeholder="D\u00e9crivez votre projet ou votre demande..." />
-                </div>
-                <button type="submit" className="w-full bg-primary text-white py-4 rounded-xl font-medium hover:bg-primary-light transition-all duration-300 hover:shadow-lg hover:shadow-primary/20">
-                  Envoyer le message
-                </button>
-              </form>
-            </div>
+            <ContactForm sujets={sujets} />
           </div>
         </div>
       </section>
