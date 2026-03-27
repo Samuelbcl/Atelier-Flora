@@ -4,46 +4,16 @@ export default defineType({
   name: 'pageContact',
   title: 'Page Contact',
   type: 'document',
-  groups: [
-    { name: 'hero', title: 'Bandeau principal', default: true },
-    { name: 'contenu', title: 'Contenu' },
-    { name: 'formulaire', title: 'Formulaire' },
-    { name: 'seo', title: 'SEO' },
+  fieldsets: [
+    { name: 'hero', title: 'Bandeau principal', options: { collapsible: true, collapsed: true } },
+    { name: 'contenu', title: 'Contenu et formulaire', options: { collapsible: true, collapsed: true } },
+    { name: 'seo', title: 'SEO', options: { collapsible: true, collapsed: true } },
   ],
   fields: [
-    defineField({
-      name: 'hero',
-      title: 'Bandeau principal',
-      type: 'heroSection',
-      group: 'hero',
-      description: 'Configurez le bandeau affiché en haut de la page contact.',
-    }),
-    defineField({
-      name: 'introTexte',
-      title: 'Texte d\'introduction',
-      type: 'text',
-      rows: 3,
-      group: 'contenu',
-      description: 'Texte affiché sous les coordonnées (optionnel).',
-    }),
-    defineField({
-      name: 'sujetsFormulaire',
-      title: 'Sujets du formulaire',
-      type: 'array',
-      group: 'formulaire',
-      of: [{ type: 'string' }],
-      description: 'Options du menu déroulant "Sujet" dans le formulaire de contact.',
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'seo',
-      group: 'seo',
-    }),
+    defineField({ name: 'hero', title: 'Bandeau principal', type: 'heroSection', fieldset: 'hero', description: 'Titre et texte affichés en haut de la page contact.' }),
+    defineField({ name: 'introTexte', title: 'Texte d\'introduction', type: 'text', rows: 3, fieldset: 'contenu', description: 'Texte supplémentaire affiché sous les coordonnées (optionnel).' }),
+    defineField({ name: 'sujetsFormulaire', title: 'Sujets du formulaire', type: 'array', fieldset: 'contenu', of: [{ type: 'string' }], description: 'Options du menu déroulant "Sujet" dans le formulaire de contact.' }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seo', fieldset: 'seo' }),
   ],
-  preview: {
-    prepare() {
-      return { title: 'Page Contact' }
-    },
-  },
+  preview: { prepare() { return { title: 'Page Contact' } } },
 })

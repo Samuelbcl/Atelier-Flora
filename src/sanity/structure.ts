@@ -4,12 +4,10 @@ const singletonItem = (
   S: Parameters<StructureResolver>[0],
   typeName: string,
   title: string,
-  icon?: React.ComponentType
 ) =>
   S.listItem()
     .title(title)
     .id(typeName)
-    .icon(icon as Parameters<ReturnType<typeof S.listItem>['icon']>[0])
     .child(
       S.document()
         .schemaType(typeName)
@@ -24,47 +22,47 @@ export const structure: StructureResolver = (S) =>
       // Pages
       S.listItem()
         .title('Pages')
+        .id('pages')
         .child(
           S.list()
             .title('Pages')
             .items([
               singletonItem(S, 'pageAccueil', 'Accueil'),
               singletonItem(S, 'pageAPropos', 'À propos'),
-              singletonItem(S, 'pageGalerie', 'Galerie'),
-              singletonItem(S, 'pageCatalogue', 'Catalogue'),
+
+              // Galerie — sous-menu avec paramètres + collections
+              S.listItem()
+                .title('Galerie')
+                .id('galerie-group')
+                .child(
+                  S.list()
+                    .title('Galerie')
+                    .items([
+                      singletonItem(S, 'pageGalerie', 'Paramètres de la page'),
+                      S.divider(),
+                      S.documentTypeListItem('categorieGalerie').title('Catégories'),
+                      S.documentTypeListItem('photoGalerie').title('Photos'),
+                    ])
+                ),
+
+              // Catalogue — sous-menu avec paramètres + collections
+              S.listItem()
+                .title('Catalogue')
+                .id('catalogue-group')
+                .child(
+                  S.list()
+                    .title('Catalogue')
+                    .items([
+                      singletonItem(S, 'pageCatalogue', 'Paramètres de la page'),
+                      S.divider(),
+                      S.documentTypeListItem('categorie').title('Catégories'),
+                      S.documentTypeListItem('produit').title('Produits'),
+                    ])
+                ),
+
               singletonItem(S, 'pageContact', 'Contact'),
             ])
         ),
-      S.divider(),
-
-      // Catalogue
-      S.listItem()
-        .title('Catalogue')
-        .child(
-          S.list()
-            .title('Catalogue')
-            .items([
-              S.documentTypeListItem('produit').title('Produits'),
-              S.documentTypeListItem('categorie').title('Catégories'),
-            ])
-        ),
-      S.divider(),
-
-      // Galerie photos
-      S.listItem()
-        .title('Galerie photos')
-        .child(
-          S.list()
-            .title('Galerie photos')
-            .items([
-              S.documentTypeListItem('photoGalerie').title('Photos'),
-              S.documentTypeListItem('categorieGalerie').title('Catégories'),
-            ])
-        ),
-      S.divider(),
-
-      // Témoignages
-      S.documentTypeListItem('temoignage').title('Témoignages'),
       S.divider(),
 
       // Réglages

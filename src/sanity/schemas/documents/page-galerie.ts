@@ -4,36 +4,15 @@ export default defineType({
   name: 'pageGalerie',
   title: 'Page Galerie',
   type: 'document',
-  groups: [
-    { name: 'hero', title: 'Bandeau principal', default: true },
-    { name: 'cta', title: 'Bandeau CTA' },
-    { name: 'seo', title: 'SEO' },
+  fieldsets: [
+    { name: 'hero', title: 'Bandeau principal', options: { collapsible: true, collapsed: true } },
+    { name: 'cta', title: 'Bandeau d\'appel à l\'action', options: { collapsible: true, collapsed: true } },
+    { name: 'seo', title: 'SEO', options: { collapsible: true, collapsed: true } },
   ],
   fields: [
-    defineField({
-      name: 'hero',
-      title: 'Bandeau principal',
-      type: 'heroSection',
-      group: 'hero',
-      description: 'Configurez le bandeau affiché en haut de la page galerie.',
-    }),
-    defineField({
-      name: 'cta',
-      title: 'Bandeau d\'appel à l\'action',
-      type: 'ctaSection',
-      group: 'cta',
-      description: 'Bandeau affiché en bas de la page pour inciter les visiteurs à vous contacter.',
-    }),
-    defineField({
-      name: 'seo',
-      title: 'SEO',
-      type: 'seo',
-      group: 'seo',
-    }),
+    defineField({ name: 'hero', title: 'Bandeau principal', type: 'heroSection', fieldset: 'hero', description: 'Titre et texte affichés en haut de la page galerie.' }),
+    defineField({ name: 'cta', title: 'Bandeau CTA', type: 'ctaSection', fieldset: 'cta', description: 'Bandeau en bas de page pour inciter les visiteurs à vous contacter.' }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seo', fieldset: 'seo' }),
   ],
-  preview: {
-    prepare() {
-      return { title: 'Page Galerie' }
-    },
-  },
+  preview: { prepare() { return { title: 'Page Galerie — Paramètres' } } },
 })
