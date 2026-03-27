@@ -5,110 +5,99 @@ export default defineType({
   title: 'Page d\'accueil',
   type: 'document',
   groups: [
-    { name: 'hero', title: 'Hero', default: true },
-    { name: 'valeurs', title: 'Valeurs' },
+    { name: 'hero', title: 'Bandeau principal', default: true },
+    { name: 'valeurs', title: 'Nos points forts' },
     { name: 'introduction', title: 'Notre histoire' },
     { name: 'produits', title: 'Produits vedettes' },
+    { name: 'temoignages', title: 'Témoignages' },
     { name: 'cta', title: 'Bandeau CTA' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
     // Hero
     defineField({
-      name: 'titre',
-      title: 'Titre principal',
-      type: 'string',
+      name: 'hero',
+      title: 'Bandeau principal',
+      type: 'heroSection',
       group: 'hero',
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'sousTitre',
-      title: 'Sous-titre',
-      type: 'string',
-      group: 'hero',
-    }),
-    defineField({
-      name: 'heroImage',
-      title: 'Image hero',
-      type: 'imageWithAlt',
-      group: 'hero',
+      description: 'Le grand bandeau affiché en haut de la page d\'accueil.',
     }),
 
     // Valeurs
     defineField({
       name: 'valeurs',
-      title: 'Nos valeurs',
-      description: '3 points forts affichés sous le hero',
+      title: 'Nos points forts',
       type: 'array',
       group: 'valeurs',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'icone', title: 'Emoji / Icône', type: 'string', description: 'Ex: 🌱, ✂️, 💚' },
-            { name: 'titre', title: 'Titre', type: 'string' },
-            { name: 'texte', title: 'Description', type: 'text', rows: 3 },
-          ],
-          preview: {
-            select: { title: 'titre', subtitle: 'texte', media: 'icone' },
-            prepare({ title, subtitle }) {
-              return { title, subtitle }
-            },
-          },
-        },
-      ],
+      of: [{ type: 'infoCard' }],
+      description: '3 à 4 points forts affichés sous le bandeau principal (ex: Fleurs de saison, Fait main, Éco-responsable).',
       validation: (rule) => rule.max(4),
     }),
 
-    // Introduction / Notre histoire
+    // Introduction
     defineField({
       name: 'introTitre',
       title: 'Titre de la section',
       type: 'string',
       group: 'introduction',
+      description: 'Titre affiché au-dessus du texte (ex: "L\'art floral au service de vos émotions").',
     }),
     defineField({
       name: 'introduction',
-      title: 'Texte d\'introduction',
+      title: 'Texte de présentation',
       type: 'portableText',
       group: 'introduction',
+      description: 'Texte de présentation de votre atelier.',
     }),
     defineField({
       name: 'introImage',
       title: 'Photo de l\'atelier',
       type: 'imageWithAlt',
       group: 'introduction',
+      description: 'Photo affichée à côté du texte. Taille recommandée : 600×750px (format portrait).',
     }),
 
     // Produits vedettes
     defineField({
+      name: 'produitsVedettesTitre',
+      title: 'Titre de la section',
+      type: 'string',
+      group: 'produits',
+      description: 'Titre affiché au-dessus des produits (ex: "Nos créations phares").',
+    }),
+    defineField({
       name: 'produitsVedettes',
-      title: 'Produits vedettes',
+      title: 'Produits mis en avant',
       type: 'array',
       group: 'produits',
       of: [{ type: 'reference', to: [{ type: 'produit' }] }],
-      description: 'Sélectionnez les produits à mettre en avant (3 recommandés)',
+      description: 'Sélectionnez 3 produits à mettre en avant sur la page d\'accueil.',
     }),
 
-    // Bandeau CTA
+    // Témoignages
     defineField({
-      name: 'ctaTitre',
-      title: 'Titre du bandeau',
+      name: 'temoignagesTitre',
+      title: 'Titre de la section',
       type: 'string',
-      group: 'cta',
+      group: 'temoignages',
+      description: 'Titre affiché au-dessus des témoignages (ex: "Ce que disent nos clients").',
     }),
     defineField({
-      name: 'ctaTexte',
-      title: 'Texte du bandeau',
-      type: 'text',
-      rows: 2,
-      group: 'cta',
+      name: 'temoignagesAffiches',
+      title: 'Témoignages à afficher',
+      type: 'array',
+      group: 'temoignages',
+      of: [{ type: 'reference', to: [{ type: 'temoignage' }] }],
+      description: 'Sélectionnez 3 témoignages. Laissez vide pour afficher les 3 plus récents.',
     }),
+
+    // CTA
     defineField({
-      name: 'ctaBouton',
-      title: 'Texte du bouton',
-      type: 'string',
+      name: 'cta',
+      title: 'Bandeau d\'appel à l\'action',
+      type: 'ctaSection',
       group: 'cta',
+      description: 'Le bandeau coloré affiché en bas de page.',
     }),
 
     // SEO

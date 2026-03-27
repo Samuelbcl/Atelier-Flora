@@ -1,71 +1,69 @@
 import { groq } from 'next-sanity'
 
-// Paramètres du site (contact, réseaux sociaux, footer)
+// Fragment réutilisable pour les images
+const imageFields = `
+  image{
+    asset->{_id, url, metadata{dimensions}},
+    hotspot,
+    crop
+  },
+  alt
+`
+
+const heroFields = `
+  hero{
+    label,
+    titre,
+    sousTitre,
+    image{ ${imageFields} },
+    ctaTexte,
+    ctaLien
+  }
+`
+
+const ctaFields = `
+  cta{
+    titre,
+    texte,
+    boutonTexte,
+    boutonLien
+  }
+`
+
+// Réglages du site
 export const SETTINGS_QUERY = groq`
   *[_type == "settings"][0]{
+    nomDuSite,
+    slogan,
+    logo{ asset->{_id, url} },
     adresse,
     telephone,
     email,
-    horaires[]{
-      _key,
-      jour,
-      heures
-    },
-    reseauxSociaux[]{
-      _key,
-      plateforme,
-      url
-    },
-    footerDescription
+    horaires[]{ _key, jour, heures },
+    reseauxSociaux[]{ _key, plateforme, url },
+    footerDescription,
+    seoGlobal{ metaTitre, metaDescription, ogImage{ asset->{_id, url} } }
   }
 `
 
 // Page d'accueil
 export const PAGE_ACCUEIL_QUERY = groq`
   *[_type == "pageAccueil"][0]{
-    titre,
-    sousTitre,
-    heroImage{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    },
-    valeurs[]{
-      _key,
-      icone,
-      titre,
-      texte
-    },
+    ${heroFields},
+    valeurs[]{ _key, icone, titre, texte },
     introTitre,
     introduction,
-    introImage{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    },
+    introImage{ ${imageFields} },
+    produitsVedettesTitre,
     produitsVedettes[]->{
-      _id,
-      nom,
-      slug,
-      prix,
-      "firstImage": images[0]{
-        image{
-          asset->{_id, url, metadata{dimensions}},
-          hotspot,
-          crop
-        },
-        alt
-      }
+      _id, nom, slug, prix, etiquette,
+      "firstImage": images[0]{ ${imageFields} }
     },
-    ctaTitre,
-    ctaTexte,
-    ctaBouton,
+    temoignagesTitre,
+    temoignagesAffiches[]->{
+      _id, auteur, texte, note, date
+    },
+    ${ctaFields},
     seo
   }
 `
@@ -73,110 +71,97 @@ export const PAGE_ACCUEIL_QUERY = groq`
 // Page À propos
 export const PAGE_A_PROPOS_QUERY = groq`
   *[_type == "pageAPropos"][0]{
-    titre,
+    ${heroFields},
     contenu,
-    valeurs[]{
-      _key,
-      titre,
-      texte
+    valeurs[]{ _key, icone, titre, texte },
+    equipe[]{
+      _key, nom, role, bio,
+      photo{ ${imageFields} }
     },
-    images[]{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    },
+    images[]{ ${imageFields} },
     citationTexte,
     citationAuteur,
     seo
   }
 `
 
+// Page Galerie
+export const PAGE_GALERIE_QUERY = groq`
+  *[_type == "pageGalerie"][0]{
+    ${heroFields},
+    ${ctaFields},
+    seo
+  }
+`
+
+// Page Catalogue
+export const PAGE_CATALOGUE_QUERY = groq`
+  *[_type == "pageCatalogue"][0]{
+    ${heroFields},
+    infosCommande[]{ _key, icone, titre, texte },
+    ${ctaFields},
+    seo
+  }
+`
+
+// Page Contact
+export const PAGE_CONTACT_QUERY = groq`
+  *[_type == "pageContact"][0]{
+    ${heroFields},
+    introTexte,
+    sujetsFormulaire,
+    seo
+  }
+`
+
+// Photos de la galerie
+export const PHOTOS_GALERIE_QUERY = groq`
+  *[_type == "photoGalerie"] | order(ordre asc){
+    _id,
+    image{ ${imageFields} },
+    legende,
+    categorie->{ _id, nom, slug }
+  }
+`
+
+// Catégories de la galerie
+export const CATEGORIES_GALERIE_QUERY = groq`
+  *[_type == "categorieGalerie"] | order(ordre asc){
+    _id, nom, slug
+  }
+`
+
+// Témoignages actifs
+export const TEMOIGNAGES_QUERY = groq`
+  *[_type == "temoignage" && actif == true] | order(date desc)[0...6]{
+    _id, auteur, texte, note, date
+  }
+`
+
 // Tous les produits
 export const PRODUITS_QUERY = groq`
   *[_type == "produit"] | order(ordre asc){
-    _id,
-    nom,
-    slug,
-    description,
-    prix,
-    images[]{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    },
-    categorie->{
-      _id,
-      nom,
-      slug
-    },
-    disponible,
-    ordre
+    _id, nom, slug, description, prix, etiquette,
+    images[]{ ${imageFields} },
+    categorie->{ _id, nom, slug },
+    disponible, ordre
   }
 `
 
 // Toutes les catégories
 export const CATEGORIES_QUERY = groq`
   *[_type == "categorie"] | order(ordre asc){
-    _id,
-    nom,
-    slug,
-    description,
-    image{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    }
+    _id, nom, slug, description,
+    image{ ${imageFields} }
   }
 `
 
 // Produit par slug
 export const PRODUIT_BY_SLUG_QUERY = groq`
   *[_type == "produit" && slug.current == $slug][0]{
-    _id,
-    nom,
-    slug,
-    description,
-    prix,
-    images[]{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    },
-    categorie->{
-      _id,
-      nom,
-      slug
-    },
-    disponible,
-    seo
-  }
-`
-
-// Images pour la galerie
-export const GALERIE_QUERY = groq`
-  *[_type == "produit" && defined(images)]{
-    _id,
-    nom,
-    "category": categorie->nom,
-    images[]{
-      image{
-        asset->{_id, url, metadata{dimensions}},
-        hotspot,
-        crop
-      },
-      alt
-    }
+    _id, nom, slug, description, prix, etiquette,
+    images[]{ ${imageFields} },
+    categorie->{ _id, nom, slug },
+    disponible, seo
   }
 `

@@ -7,6 +7,15 @@ import { schemaTypes } from '@/sanity/schemas'
 import { structure } from '@/sanity/structure'
 import { ConfirmPublishAction } from '@/sanity/actions/confirm-publish'
 
+const SINGLETONS = [
+  'pageAccueil',
+  'pageAPropos',
+  'pageGalerie',
+  'pageCatalogue',
+  'pageContact',
+  'settings',
+]
+
 export default defineConfig({
   name: 'atelier-flora',
   title: 'Atelier Flora',
@@ -20,24 +29,18 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
     templates: (templates) =>
-      templates.filter(
-        ({ schemaType }) => !['pageAccueil', 'pageAPropos', 'settings'].includes(schemaType)
-      ),
+      templates.filter(({ schemaType }) => !SINGLETONS.includes(schemaType)),
   },
   document: {
     actions: (prev, context) => {
-      // Replace default publish with confirm-publish
       const actions = prev.map((action) =>
         action.action === 'publish' ? ConfirmPublishAction : action
       )
-
-      // Singletons: no delete, no duplicate
-      if (['pageAccueil', 'pageAPropos', 'settings'].includes(context.schemaType)) {
+      if (SINGLETONS.includes(context.schemaType)) {
         return actions.filter(
           ({ action }) => action !== 'delete' && action !== 'duplicate'
         )
       }
-
       return actions
     },
   },

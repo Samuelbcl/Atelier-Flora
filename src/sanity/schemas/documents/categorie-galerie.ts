@@ -1,36 +1,24 @@
 import { defineType, defineField } from 'sanity'
 
 export default defineType({
-  name: 'categorie',
-  title: 'Catégorie',
+  name: 'categorieGalerie',
+  title: 'Catégorie de galerie',
   type: 'document',
   fields: [
     defineField({
       name: 'nom',
       title: 'Nom',
       type: 'string',
-      description: 'Nom de la catégorie (ex: Bouquets, Compositions, Mariages).',
+      description: 'Nom de la catégorie (ex: Mariages, Événements, Boutique).',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'URL',
+      title: 'Slug',
       type: 'slug',
       options: { source: 'nom', maxLength: 96 },
-      description: 'Adresse web de la catégorie (générée automatiquement).',
+      description: 'URL de la catégorie (généré automatiquement).',
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      description: 'Courte description de la catégorie.',
-    }),
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'imageWithAlt',
-      description: 'Image représentative. Taille recommandée : 400×300px (format paysage).',
     }),
     defineField({
       name: 'ordre',
@@ -43,9 +31,6 @@ export default defineType({
     { title: 'Ordre d\'affichage', name: 'ordreAsc', by: [{ field: 'ordre', direction: 'asc' }] },
   ],
   preview: {
-    select: {
-      title: 'nom',
-      media: 'image.image',
-    },
+    select: { title: 'nom' },
   },
 })

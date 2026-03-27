@@ -1,9 +1,15 @@
 import type { StructureResolver } from 'sanity/structure'
 
-const singletonItem = (S: Parameters<StructureResolver>[0], typeName: string, title: string) =>
+const singletonItem = (
+  S: Parameters<StructureResolver>[0],
+  typeName: string,
+  title: string,
+  icon?: React.ComponentType
+) =>
   S.listItem()
     .title(title)
     .id(typeName)
+    .icon(icon as Parameters<ReturnType<typeof S.listItem>['icon']>[0])
     .child(
       S.document()
         .schemaType(typeName)
@@ -15,10 +21,6 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Contenu')
     .items([
-      // Paramètres
-      singletonItem(S, 'settings', 'Paramètres du site'),
-      S.divider(),
-
       // Pages
       S.listItem()
         .title('Pages')
@@ -26,8 +28,11 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Pages')
             .items([
-              singletonItem(S, 'pageAccueil', 'Page d\'accueil'),
-              singletonItem(S, 'pageAPropos', 'Page À propos'),
+              singletonItem(S, 'pageAccueil', 'Accueil'),
+              singletonItem(S, 'pageAPropos', 'À propos'),
+              singletonItem(S, 'pageGalerie', 'Galerie'),
+              singletonItem(S, 'pageCatalogue', 'Catalogue'),
+              singletonItem(S, 'pageContact', 'Contact'),
             ])
         ),
       S.divider(),
@@ -43,4 +48,25 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('categorie').title('Catégories'),
             ])
         ),
+      S.divider(),
+
+      // Galerie photos
+      S.listItem()
+        .title('Galerie photos')
+        .child(
+          S.list()
+            .title('Galerie photos')
+            .items([
+              S.documentTypeListItem('photoGalerie').title('Photos'),
+              S.documentTypeListItem('categorieGalerie').title('Catégories'),
+            ])
+        ),
+      S.divider(),
+
+      // Témoignages
+      S.documentTypeListItem('temoignage').title('Témoignages'),
+      S.divider(),
+
+      // Réglages
+      singletonItem(S, 'settings', 'Réglages du site'),
     ])

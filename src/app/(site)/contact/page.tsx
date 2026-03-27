@@ -1,43 +1,47 @@
+export const revalidate = 60;
+
 import type { Metadata } from "next";
 import { client } from "@/sanity/client";
-import { SETTINGS_QUERY } from "@/sanity/queries";
+import { SETTINGS_QUERY, PAGE_CONTACT_QUERY } from "@/sanity/queries";
+import HeroSection from "@/components/hero-section";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contactez Atelier Flora pour vos commandes sur mesure, \u00e9v\u00e9nements ou toute question. Fleuriste artisanale \u00e0 Paris.",
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SA = any;
 
-interface Settings {
-  adresse: string | null;
-  telephone: string | null;
-  email: string | null;
-  horaires: Array<{ _key: string; jour: string; heures: string }> | null;
-}
+interface Settings { adresse: string | null; telephone: string | null; email: string | null; horaires: Array<{ _key: string; jour: string; heures: string }> | null }
+interface PageContact { hero: SA | null; introTexte: string | null; sujetsFormulaire: string[] | null; seo: { metaTitre: string | null; metaDescription: string | null } | null }
 
 const defaultHoraires = [
   { _key: "h1", jour: "Lundi \u2013 Vendredi", heures: "9h \u2013 19h" },
   { _key: "h2", jour: "Samedi", heures: "9h \u2013 18h" },
   { _key: "h3", jour: "Dimanche", heures: "Ferm\u00e9" },
 ];
+const defaultSujets = ["Commande sur mesure", "Mariage", "\u00c9v\u00e9nement", "Renseignement", "Autre"];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data: PageContact | null = await client.fetch(PAGE_CONTACT_QUERY);
+  return {
+    title: data?.seo?.metaTitre || "Contact",
+    description: data?.seo?.metaDescription || "Contactez Atelier Flora pour vos commandes sur mesure.",
+  };
+}
 
 export default async function Contact() {
-  const settings: Settings | null = await client.fetch(SETTINGS_QUERY);
+  const [settings, pageData] = await Promise.all([
+    client.fetch<Settings | null>(SETTINGS_QUERY),
+    client.fetch<PageContact | null>(PAGE_CONTACT_QUERY),
+  ]);
+
   const horaires = settings?.horaires?.length ? settings.horaires : defaultHoraires;
+  const sujets = pageData?.sujetsFormulaire?.length ? pageData.sujetsFormulaire : defaultSujets;
 
   return (
     <>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-primary/5 to-cream">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-4">Parlons fleurs</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-primary font-bold leading-tight">Contactez-nous</h1>
-          <p className="mt-4 text-charcoal/60 max-w-xl mx-auto">
-            Une question, une commande sur mesure ou un &eacute;v&eacute;nement &agrave; fleurir ? Nous sommes &agrave; votre &eacute;coute.
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        data={pageData?.hero}
+        defaults={{ label: "Parlons fleurs", titre: "Contactez-nous", sousTitre: "Une question, une commande sur mesure ou un \u00e9v\u00e9nement \u00e0 fleurir ? Nous sommes \u00e0 votre \u00e9coute." }}
+      />
 
-      {/* Contenu */}
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Informations */}
@@ -46,29 +50,21 @@ export default async function Contact() {
               <h2 className="font-serif text-2xl text-primary mb-6">Nos coordonn&eacute;es</h2>
               <div className="space-y-6">
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <span className="text-sm">{"\uD83D\uDCCD"}</span>
-                  </div>
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-sm">{"\uD83D\uDCCD"}</span></div>
                   <div>
                     <p className="font-medium text-charcoal mb-1">Adresse</p>
-                    <p className="text-charcoal/60 text-sm leading-relaxed whitespace-pre-line">
-                      {settings?.adresse || "12 rue des Fleurs\n75004 Paris"}
-                    </p>
+                    <p className="text-charcoal/60 text-sm leading-relaxed whitespace-pre-line">{settings?.adresse || "12 rue des Fleurs\n75004 Paris"}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <span className="text-sm">{"\uD83D\uDCDE"}</span>
-                  </div>
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-sm">{"\uD83D\uDCDE"}</span></div>
                   <div>
                     <p className="font-medium text-charcoal mb-1">T&eacute;l&eacute;phone</p>
                     <p className="text-charcoal/60 text-sm">{settings?.telephone || "01 23 45 67 89"}</p>
                   </div>
                 </div>
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <span className="text-sm">{"\u2709\uFE0F"}</span>
-                  </div>
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-sm">{"\u2709\uFE0F"}</span></div>
                   <div>
                     <p className="font-medium text-charcoal mb-1">Email</p>
                     <p className="text-charcoal/60 text-sm">{settings?.email || "contact@atelier-flora.fr"}</p>
@@ -76,6 +72,10 @@ export default async function Contact() {
                 </div>
               </div>
             </div>
+
+            {pageData?.introTexte && (
+              <p className="text-charcoal/60 text-sm leading-relaxed">{pageData.introTexte}</p>
+            )}
 
             <div>
               <h3 className="font-serif text-xl text-primary mb-4">Horaires</h3>
@@ -118,11 +118,9 @@ export default async function Contact() {
                   <label htmlFor="sujet" className="block text-sm font-medium text-charcoal mb-1.5">Sujet</label>
                   <select id="sujet" name="sujet" className="w-full rounded-xl border border-primary/15 bg-cream/30 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all text-charcoal/70">
                     <option value="">Choisissez un sujet</option>
-                    <option value="commande">Commande sur mesure</option>
-                    <option value="mariage">Mariage</option>
-                    <option value="evenement">&Eacute;v&eacute;nement</option>
-                    <option value="info">Renseignement</option>
-                    <option value="autre">Autre</option>
+                    {sujets.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
                   </select>
                 </div>
                 <div>

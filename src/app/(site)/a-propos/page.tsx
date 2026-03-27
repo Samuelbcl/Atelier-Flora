@@ -6,33 +6,35 @@ import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
 import { PAGE_A_PROPOS_QUERY } from "@/sanity/queries";
 import PortableTextRenderer from "@/components/portable-text-renderer";
+import HeroSection from "@/components/hero-section";
+import Equipe from "@/components/equipe";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type SanityImage = any;
+type SA = any;
 
 interface PageAPropos {
-  titre: string | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  contenu: any;
-  valeurs: Array<{ _key: string; titre: string; texte: string }> | null;
-  images: Array<{ image: SanityImage; alt: string }> | null;
+  hero: { label: string; titre: string; sousTitre: string } | null;
+  contenu: SA;
+  valeurs: Array<{ _key: string; icone: string; titre: string; texte: string }> | null;
+  equipe: Array<{ _key: string; nom: string; role: string | null; photo: { image: SA; alt: string } | null; bio: string | null }> | null;
+  images: Array<{ image: SA; alt: string }> | null;
   citationTexte: string | null;
   citationAuteur: string | null;
   seo: { metaTitre: string | null; metaDescription: string | null } | null;
 }
 
 const defaultValeurs = [
-  { _key: "v1", titre: "La saisonnalit\u00e9", texte: "Nous travaillons au rythme des saisons. Chaque p\u00e9riode de l\u2019ann\u00e9e offre sa palette unique de couleurs et de textures que nous mettons en valeur dans nos cr\u00e9ations." },
-  { _key: "v2", titre: "L\u2019artisanat", texte: "Chaque bouquet est compos\u00e9 \u00e0 la main, sans m\u00e9canisation. Nous prenons le temps de cr\u00e9er des arrangements qui refl\u00e8tent notre savoir-faire et notre sensibilit\u00e9 artistique." },
-  { _key: "v3", titre: "Le local", texte: "Nos fleurs proviennent de producteurs fran\u00e7ais et europ\u00e9ens engag\u00e9s dans des pratiques agricoles responsables. Nous privil\u00e9gions les circuits courts." },
-  { _key: "v4", titre: "La durabilit\u00e9", texte: "Z\u00e9ro mousse florale synth\u00e9tique, emballages recycl\u00e9s et r\u00e9duction des d\u00e9chets \u2014 nous cherchons \u00e0 minimiser notre impact environnemental \u00e0 chaque \u00e9tape." },
+  { _key: "v1", icone: "", titre: "La saisonnalit\u00e9", texte: "Nous travaillons au rythme des saisons. Chaque p\u00e9riode offre sa palette unique de couleurs et de textures." },
+  { _key: "v2", icone: "", titre: "L\u2019artisanat", texte: "Chaque bouquet est compos\u00e9 \u00e0 la main. Nous prenons le temps de cr\u00e9er des arrangements qui refl\u00e8tent notre savoir-faire." },
+  { _key: "v3", icone: "", titre: "Le local", texte: "Nos fleurs proviennent de producteurs fran\u00e7ais et europ\u00e9ens engag\u00e9s dans des pratiques agricoles responsables." },
+  { _key: "v4", icone: "", titre: "La durabilit\u00e9", texte: "Z\u00e9ro mousse florale synth\u00e9tique, emballages recycl\u00e9s \u2014 nous minimisons notre impact \u00e0 chaque \u00e9tape." },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
   const data: PageAPropos | null = await client.fetch(PAGE_A_PROPOS_QUERY);
   return {
     title: data?.seo?.metaTitre || "\u00c0 propos",
-    description: data?.seo?.metaDescription || "D\u00e9couvrez l'histoire d'Atelier Flora, fleuriste artisanale passionn\u00e9e par l'art floral \u00e0 Paris.",
+    description: data?.seo?.metaDescription || "D\u00e9couvrez l'histoire d'Atelier Flora, fleuriste artisanale \u00e0 Paris.",
   };
 }
 
@@ -42,15 +44,7 @@ export default async function APropos() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-primary/5 to-cream">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-4">Notre histoire</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-primary font-bold leading-tight">
-            {data?.titre || "La passion des fleurs depuis toujours"}
-          </h1>
-        </div>
-      </section>
+      <HeroSection data={data?.hero} defaults={{ label: "Notre histoire", titre: "La passion des fleurs depuis toujours" }} />
 
       {/* Contenu */}
       <section className="py-16 md:py-24">
@@ -59,13 +53,11 @@ export default async function APropos() {
             {data?.contenu ? (
               <PortableTextRenderer value={data.contenu} />
             ) : (
-              <>
+              <div className="space-y-4 text-charcoal/60 leading-relaxed">
                 <h2 className="font-serif text-2xl md:text-3xl text-primary mb-6">Comment tout a commenc&eacute;</h2>
-                <div className="space-y-4 text-charcoal/60 leading-relaxed">
-                  <p>Atelier Flora est n&eacute; en 2020 d&rsquo;un r&ecirc;ve simple : rendre la beaut&eacute; des fleurs accessible &agrave; tous, tout en respectant la nature qui nous les offre.</p>
-                  <p>Apr&egrave;s des ann&eacute;es pass&eacute;es &agrave; apprendre l&rsquo;art floral aupr&egrave;s de ma&icirc;tres artisans, notre fondatrice a ouvert les portes de son propre atelier au c&oelig;ur de Paris, dans le Marais.</p>
-                </div>
-              </>
+                <p>Atelier Flora est n&eacute; en 2020 d&rsquo;un r&ecirc;ve simple : rendre la beaut&eacute; des fleurs accessible &agrave; tous.</p>
+                <p>Notre fondatrice a ouvert les portes de son propre atelier au c&oelig;ur de Paris, dans le Marais.</p>
+              </div>
             )}
           </div>
           <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center overflow-hidden relative">
@@ -95,6 +87,9 @@ export default async function APropos() {
           </div>
         </div>
       </section>
+
+      {/* Équipe */}
+      {data?.equipe && <Equipe equipe={data.equipe} />}
 
       {/* Galerie photos */}
       <section className="py-16 md:py-24">

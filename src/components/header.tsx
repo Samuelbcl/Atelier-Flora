@@ -12,7 +12,7 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
-export default function Header() {
+export default function Header({ siteName = "Atelier Flora" }: { siteName?: string }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
@@ -24,7 +24,7 @@ export default function Header() {
           className="font-serif text-2xl text-primary font-bold"
           onClick={() => setMobileOpen(false)}
         >
-          Atelier Flora
+          {siteName}
         </Link>
 
         {/* Desktop nav */}

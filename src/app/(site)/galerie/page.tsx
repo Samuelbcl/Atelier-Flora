@@ -4,169 +4,106 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
-import { GALERIE_QUERY } from "@/sanity/queries";
+import { PAGE_GALERIE_QUERY, PHOTOS_GALERIE_QUERY, CATEGORIES_GALERIE_QUERY } from "@/sanity/queries";
+import HeroSection from "@/components/hero-section";
+import CtaSection from "@/components/cta-section";
 
-export const metadata: Metadata = {
-  title: "Galerie",
-  description:
-    "Parcourez notre galerie de créations florales artisanales. Bouquets, compositions et événements.",
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SA = any;
 
-interface GalerieItem {
+interface Photo {
   _id: string;
-  nom: string;
-  category: string | null;
-  images: Array<{
-    image: { asset: { _id: string; url: string; metadata?: { dimensions?: { width: number; height: number } } } };
-    alt: string;
-  }>;
+  image: { image: SA; alt: string };
+  legende: string | null;
+  categorie: { _id: string; nom: string; slug: { current: string } } | null;
 }
 
-// Spans for masonry-like layout
-const spanPatterns = [
-  "md:col-span-2 md:row-span-2",
-  "",
-  "",
-  "",
-  "md:col-span-2",
-  "",
-  "",
-  "",
-  "md:col-span-2",
-  "",
-  "",
-  "",
-];
+interface CatGalerie { _id: string; nom: string; slug: { current: string } }
+
+interface PageGalerie {
+  hero: SA | null;
+  cta: SA | null;
+  seo: { metaTitre: string | null; metaDescription: string | null } | null;
+}
+
+const spanPatterns = ["md:col-span-2 md:row-span-2", "", "", "", "md:col-span-2", "", "", "", "md:col-span-2", "", "", ""];
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data: PageGalerie | null = await client.fetch(PAGE_GALERIE_QUERY);
+  return {
+    title: data?.seo?.metaTitre || "Galerie",
+    description: data?.seo?.metaDescription || "Parcourez notre galerie de cr\u00e9ations florales artisanales.",
+  };
+}
 
 export default async function Galerie() {
-  const data: GalerieItem[] = await client.fetch(GALERIE_QUERY);
+  const [pageData, photos, categories] = await Promise.all([
+    client.fetch<PageGalerie | null>(PAGE_GALERIE_QUERY),
+    client.fetch<Photo[]>(PHOTOS_GALERIE_QUERY),
+    client.fetch<CatGalerie[]>(CATEGORIES_GALERIE_QUERY),
+  ]);
 
-  // Flatten all images from products into a single array
-  const allImages = data.flatMap((item) =>
-    (item.images || []).map((img, i) => ({
-      key: `${item._id}-${i}`,
-      category: item.category || "Autre",
-      productName: item.nom,
-      image: img.image,
-      alt: img.alt,
-    }))
-  );
-
-  const hasSanityData = allImages.length > 0;
-
-  // Fallback photos
-  const fallbackPhotos = [
-    { id: 1, category: "Bouquets", span: "md:col-span-2 md:row-span-2" },
-    { id: 2, category: "Compositions", span: "" },
-    { id: 3, category: "Mariages", span: "" },
-    { id: 4, category: "\u00c9v\u00e9nements", span: "" },
-    { id: 5, category: "Bouquets", span: "md:col-span-2" },
-    { id: 6, category: "Compositions", span: "" },
-    { id: 7, category: "Mariages", span: "" },
-    { id: 8, category: "Bouquets", span: "" },
-    { id: 9, category: "\u00c9v\u00e9nements", span: "md:col-span-2" },
-    { id: 10, category: "Compositions", span: "" },
-    { id: 11, category: "Mariages", span: "" },
-    { id: 12, category: "Bouquets", span: "" },
-  ];
+  const hasPhotos = photos.length > 0;
 
   return (
     <>
-      {/* Hero */}
-      <section className="py-20 md:py-28 bg-gradient-to-b from-primary/5 to-cream">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-4">
-            Nos r&eacute;alisations
-          </p>
-          <h1 className="font-serif text-4xl md:text-5xl text-primary font-bold leading-tight">
-            Galerie
-          </h1>
-          <p className="mt-4 text-charcoal/60 max-w-xl mx-auto">
-            Un aper&ccedil;u de nos cr&eacute;ations, des bouquets du quotidien
-            aux compositions pour vos &eacute;v&eacute;nements les plus
-            pr&eacute;cieux.
-          </p>
-        </div>
-      </section>
+      <HeroSection
+        data={pageData?.hero}
+        defaults={{ label: "Nos r\u00e9alisations", titre: "Galerie", sousTitre: "Un aper\u00e7u de nos cr\u00e9ations, des bouquets du quotidien aux compositions pour vos \u00e9v\u00e9nements." }}
+      />
 
-      {/* Grille */}
+      {/* Filtres catégories */}
+      {categories.length > 0 && (
+        <section className="py-8 bg-white sticky top-[73px] z-40 border-b border-primary/5">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="flex items-center gap-3 overflow-x-auto pb-2">
+              <span className="px-5 py-2 rounded-full text-sm font-medium bg-primary text-white">Tout</span>
+              {categories.map((cat) => (
+                <span key={cat._id} className="px-5 py-2 rounded-full text-sm font-medium bg-primary/5 text-charcoal/60 whitespace-nowrap">
+                  {cat.nom}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Grille photos */}
       <section className="py-12 md:py-16 bg-white">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[200px] md:auto-rows-[250px]">
-            {hasSanityData
-              ? allImages.map((photo, i) => (
-                  <div
-                    key={photo.key}
-                    className={`group relative rounded-2xl overflow-hidden cursor-pointer ${
-                      spanPatterns[i % spanPatterns.length]
-                    }`}
-                  >
-                    {photo.image?.asset ? (
-                      <Image
-                        src={urlFor(photo.image).width(600).height(600).url()}
-                        alt={photo.alt || photo.productName}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+            {hasPhotos
+              ? photos.map((photo, i) => (
+                  <div key={photo._id} className={`group relative rounded-2xl overflow-hidden cursor-pointer ${spanPatterns[i % spanPatterns.length]}`}>
+                    {photo.image?.image?.asset ? (
+                      <Image src={urlFor(photo.image.image).width(600).height(600).url()} alt={photo.image.alt || photo.legende || ""} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center">
-                        <span className="text-charcoal/30 text-sm">
-                          {photo.category}
-                        </span>
+                        <span className="text-charcoal/30 text-sm">{photo.legende || "Photo"}</span>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-500" />
                     <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
                       <div>
-                        <span className="text-white text-sm font-medium drop-shadow-lg block">
-                          {photo.productName}
-                        </span>
-                        {photo.category && (
-                          <span className="text-white/70 text-xs drop-shadow-lg">
-                            {photo.category}
-                          </span>
-                        )}
+                        {photo.legende && <span className="text-white text-sm font-medium drop-shadow-lg block">{photo.legende}</span>}
+                        {photo.categorie && <span className="text-white/70 text-xs drop-shadow-lg">{photo.categorie.nom}</span>}
                       </div>
                     </div>
                   </div>
                 ))
-              : fallbackPhotos.map((photo) => (
-                  <div
-                    key={photo.id}
-                    className={`group relative rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center overflow-hidden cursor-pointer ${photo.span}`}
-                  >
-                    <span className="text-charcoal/30 text-sm z-10">
-                      {photo.category}
-                    </span>
-                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-500" />
-                    <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                      <span className="text-white text-sm font-medium drop-shadow-lg">
-                        {photo.category} #{photo.id}
-                      </span>
-                    </div>
+              : Array.from({ length: 12 }, (_, i) => (
+                  <div key={i} className={`group relative rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center overflow-hidden ${spanPatterns[i % spanPatterns.length]}`}>
+                    <span className="text-charcoal/30 text-sm">Photo {i + 1}</span>
                   </div>
                 ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-20">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="font-serif text-2xl md:text-3xl text-primary">
-            Envie d&rsquo;une cr&eacute;ation sur mesure ?
-          </h2>
-          <p className="mt-4 text-charcoal/60">
-            Chaque projet est unique. Parlons ensemble de vos envies.
-          </p>
-          <a
-            href="/contact"
-            className="mt-8 inline-block bg-primary text-white px-8 py-4 rounded-full font-medium hover:bg-primary-light transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
-          >
-            Discutons de votre projet
-          </a>
-        </div>
-      </section>
+      <CtaSection
+        data={pageData?.cta}
+        defaults={{ titre: "Envie d\u2019une cr\u00e9ation sur mesure ?", texte: "Chaque projet est unique. Parlons ensemble de vos envies.", boutonTexte: "Discutons de votre projet", boutonLien: "/contact" }}
+      />
     </>
   );
 }
