@@ -31,9 +31,11 @@ export default defineConfig({
         action.action === 'publish' ? ConfirmPublishAction : action
       )
 
-      // Prevent deleting singleton documents
+      // Singletons: no delete, no duplicate
       if (['pageAccueil', 'pageAPropos'].includes(context.schemaType)) {
-        return actions.filter(({ action }) => action !== 'delete')
+        return actions.filter(
+          ({ action }) => action !== 'delete' && action !== 'duplicate'
+        )
       }
 
       return actions
