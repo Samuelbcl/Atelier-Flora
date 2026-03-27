@@ -39,7 +39,7 @@ export default defineConfig({
       )
       if (SINGLETONS.includes(context.schemaType)) {
         return actions.filter(
-          ({ action }) => action !== 'delete' && action !== 'duplicate'
+          ({ action }) => action !== 'delete' && action !== 'duplicate' && action !== 'unpublish'
         )
       }
       return actions
