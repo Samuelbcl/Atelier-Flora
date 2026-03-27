@@ -1,9 +1,5 @@
 import type { StructureResolver } from 'sanity/structure'
 
-// Singleton document types — only one instance should exist
-const singletonTypes = new Set(['pageAccueil', 'pageAPropos'])
-
-// Helpers
 const singletonItem = (S: Parameters<StructureResolver>[0], typeName: string, title: string) =>
   S.listItem()
     .title(title)
@@ -19,8 +15,11 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title('Contenu')
     .items([
-      // Singletons — pages uniques
+      // Paramètres
+      singletonItem(S, 'settings', 'Paramètres du site'),
       S.divider(),
+
+      // Pages
       S.listItem()
         .title('Pages')
         .child(
@@ -33,7 +32,7 @@ export const structure: StructureResolver = (S) =>
         ),
       S.divider(),
 
-      // Collections — produits & catégories
+      // Catalogue
       S.listItem()
         .title('Catalogue')
         .child(
@@ -45,11 +44,3 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
     ])
-
-// Filter out singleton types from the global "new document" menu
-export const singletonActions = (prev: string[], context: { schemaType: string }) => {
-  if (singletonTypes.has(context.schemaType)) {
-    return prev.filter((action) => action !== 'delete')
-  }
-  return prev
-}

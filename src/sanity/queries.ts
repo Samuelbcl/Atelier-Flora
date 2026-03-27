@@ -1,5 +1,25 @@
 import { groq } from 'next-sanity'
 
+// Paramètres du site (contact, réseaux sociaux, footer)
+export const SETTINGS_QUERY = groq`
+  *[_type == "settings"][0]{
+    adresse,
+    telephone,
+    email,
+    horaires[]{
+      _key,
+      jour,
+      heures
+    },
+    reseauxSociaux[]{
+      _key,
+      plateforme,
+      url
+    },
+    footerDescription
+  }
+`
+
 // Page d'accueil
 export const PAGE_ACCUEIL_QUERY = groq`
   *[_type == "pageAccueil"][0]{
@@ -13,7 +33,22 @@ export const PAGE_ACCUEIL_QUERY = groq`
       },
       alt
     },
+    valeurs[]{
+      _key,
+      icone,
+      titre,
+      texte
+    },
+    introTitre,
     introduction,
+    introImage{
+      image{
+        asset->{_id, url, metadata{dimensions}},
+        hotspot,
+        crop
+      },
+      alt
+    },
     produitsVedettes[]->{
       _id,
       nom,
@@ -28,6 +63,9 @@ export const PAGE_ACCUEIL_QUERY = groq`
         alt
       }
     },
+    ctaTitre,
+    ctaTexte,
+    ctaBouton,
     seo
   }
 `
@@ -37,6 +75,11 @@ export const PAGE_A_PROPOS_QUERY = groq`
   *[_type == "pageAPropos"][0]{
     titre,
     contenu,
+    valeurs[]{
+      _key,
+      titre,
+      texte
+    },
     images[]{
       image{
         asset->{_id, url, metadata{dimensions}},
@@ -45,6 +88,8 @@ export const PAGE_A_PROPOS_QUERY = groq`
       },
       alt
     },
+    citationTexte,
+    citationAuteur,
     seo
   }
 `
@@ -119,7 +164,7 @@ export const PRODUIT_BY_SLUG_QUERY = groq`
   }
 `
 
-// Images pour la galerie (tous les produits + page about images)
+// Images pour la galerie
 export const GALERIE_QUERY = groq`
   *[_type == "produit" && defined(images)]{
     _id,

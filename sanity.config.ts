@@ -21,7 +21,7 @@ export default defineConfig({
     types: schemaTypes,
     templates: (templates) =>
       templates.filter(
-        ({ schemaType }) => !['pageAccueil', 'pageAPropos'].includes(schemaType)
+        ({ schemaType }) => !['pageAccueil', 'pageAPropos', 'settings'].includes(schemaType)
       ),
   },
   document: {
@@ -32,7 +32,7 @@ export default defineConfig({
       )
 
       // Singletons: no delete, no duplicate
-      if (['pageAccueil', 'pageAPropos'].includes(context.schemaType)) {
+      if (['pageAccueil', 'pageAPropos', 'settings'].includes(context.schemaType)) {
         return actions.filter(
           ({ action }) => action !== 'delete' && action !== 'duplicate'
         )
