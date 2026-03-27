@@ -54,7 +54,7 @@ export const PAGE_ACCUEIL_QUERY = groq`
       nom,
       slug,
       prix,
-      images[0]{
+      "firstImage": images[0]{
         image{
           asset->{_id, url, metadata{dimensions}},
           hotspot,

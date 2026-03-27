@@ -24,7 +24,7 @@ interface PageAccueil {
     nom: string;
     slug: { current: string };
     prix: number;
-    images: Array<{ image: SanityImage; alt: string }>;
+    firstImage: { image: SanityImage; alt: string } | null;
   }> | null;
   ctaTitre: string | null;
   ctaTexte: string | null;
@@ -147,8 +147,8 @@ export default async function Accueil() {
               ? produitsVedettes.map((product) => (
                   <Link key={product._id} href={`/catalogue/${product.slug?.current}`} className="group">
                     <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 overflow-hidden relative">
-                      {product.images?.[0]?.image?.asset ? (
-                        <Image src={urlFor(product.images[0].image).width(600).height(800).url()} alt={product.images[0].alt || product.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      {product.firstImage?.image?.asset ? (
+                        <Image src={urlFor(product.firstImage.image).width(600).height(800).url()} alt={product.firstImage.alt || product.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       ) : (
                         <div className="flex items-center justify-center h-full"><span className="text-charcoal/30 text-sm">Photo produit</span></div>
                       )}
