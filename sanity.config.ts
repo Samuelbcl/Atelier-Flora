@@ -5,6 +5,7 @@ import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from '@/sanity/schemas'
 import { structure } from '@/sanity/structure'
+import { ConfirmPublishAction } from '@/sanity/actions/confirm-publish'
 
 export default defineConfig({
   name: 'atelier-flora',
@@ -18,21 +19,24 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
-    // Prevent creating new documents for singleton types
     templates: (templates) =>
       templates.filter(
         ({ schemaType }) => !['pageAccueil', 'pageAPropos'].includes(schemaType)
       ),
   },
   document: {
-    // Prevent deleting singleton documents
     actions: (prev, context) => {
+      // Replace default publish with confirm-publish
+      const actions = prev.map((action) =>
+        action.action === 'publish' ? ConfirmPublishAction : action
+      )
+
+      // Prevent deleting singleton documents
       if (['pageAccueil', 'pageAPropos'].includes(context.schemaType)) {
-        return prev.filter(
-          ({ action }) => action !== 'delete'
-        )
+        return actions.filter(({ action }) => action !== 'delete')
       }
-      return prev
+
+      return actions
     },
   },
 })
