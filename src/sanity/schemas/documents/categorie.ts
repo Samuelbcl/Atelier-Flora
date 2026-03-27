@@ -27,12 +27,6 @@ export default defineType({
       description: 'Courte description de la catégorie.',
     }),
     defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'imageWithAlt',
-      description: 'Image représentative. Taille recommandée : 400×300px (format paysage).',
-    }),
-    defineField({
       name: 'ordre',
       title: 'Ordre d\'affichage',
       type: 'number',
@@ -43,9 +37,6 @@ export default defineType({
     { title: 'Ordre d\'affichage', name: 'ordreAsc', by: [{ field: 'ordre', direction: 'asc' }] },
   ],
   preview: {
-    select: {
-      title: 'nom',
-      media: 'image.image',
-    },
+    select: { title: 'nom' },
   },
 })
