@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm -v)",
+      "Bash(npx --version)",
+      "Bash(npm view:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.sanity.io)",
+      "Bash(npx create-next-app@latest --help)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --use-npm --disable-git)",
+      "Bash(printf \"No\\\\nNo\\\\n\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --use-npm --disable-git --import-alias \"@/*\" --yes)",
+      "Bash(npm run:*)",
+      "Bash(gh auth:*)",
+      "Bash(git remote:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

@@ -14,11 +14,29 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Atelier Flora | Fleuriste Artisanale",
+    default: "Atelier Flora | Fleuriste Artisanale Paris",
     template: "%s | Atelier Flora",
   },
   description:
-    "Atelier Flora, fleuriste artisanale. Bouquets sur mesure, compositions florales et créations uniques pour toutes vos occasions.",
+    "Atelier Flora, fleuriste artisanale au coeur de Paris. Bouquets sur mesure, compositions florales et cr\u00e9ations uniques avec des fleurs de saison.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://atelier-flora.vercel.app"
+  ),
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Atelier Flora",
+    title: "Atelier Flora | Fleuriste Artisanale Paris",
+    description:
+      "Bouquets sur mesure, compositions florales et cr\u00e9ations uniques avec des fleurs de saison.",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
