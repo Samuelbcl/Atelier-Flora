@@ -1,34 +1,47 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { type DocumentActionComponent, useDocumentOperation } from 'sanity'
 
 export const ConfirmPublishAction: DocumentActionComponent = (props) => {
   const { publish } = useDocumentOperation(props.id, props.type)
-  const [isConfirming, setIsConfirming] = useState(false)
-  const [isPublishing, setIsPublishing] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'confirming' | 'publishing'>('idle')
+
+  useEffect(() => {
+    if (status === 'confirming') {
+      const timer = setTimeout(() => setStatus('idle'), 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [status])
 
   if (!props.draft) {
     return null
   }
 
   return {
-    label: isPublishing ? 'Publication…' : isConfirming ? 'Confirmer ?' : 'Publier',
-    tone: isConfirming ? 'positive' as const : undefined,
-    disabled: !!publish.disabled || isPublishing,
+    label:
+      status === 'publishing'
+        ? 'Publication en cours…'
+        : status === 'confirming'
+          ? '✓ Confirmer la publication ?'
+          : 'Publier',
+    tone: status === 'confirming' ? ('positive' as const) : undefined,
+    disabled: !!publish.disabled || status === 'publishing',
     onHandle: () => {
-      if (!isConfirming) {
-        setIsConfirming(true)
-        setTimeout(() => setIsConfirming(false), 3000)
+      if (status === 'idle') {
+        setStatus('confirming')
         return
       }
 
-      setIsPublishing(true)
-      publish.execute()
-
-      setTimeout(() => {
-        setIsPublishing(false)
-        setIsConfirming(false)
-        props.onComplete()
-      }, 1500)
+      if (status === 'confirming') {
+        setStatus('publishing')
+        publish.execute()
+        setTimeout(() => {
+          setStatus('idle')
+          props.onComplete()
+        }, 1500)
+      }
     },
   }
 }
+
+// Static property so Sanity can identify this action
+ConfirmPublishAction.action = 'publish'
