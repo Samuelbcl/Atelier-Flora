@@ -92,9 +92,9 @@ export default function CatalogueFilter({ categories, produits }: CatalogueFilte
               <Link
                 key={product._id}
                 href={`/catalogue/${product.slug?.current}`}
-                className={`group ${!product.disponible ? "opacity-60" : ""}`}
+                className="group"
               >
-                <div className={`relative aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 overflow-hidden ${!product.disponible ? "grayscale" : ""}`}>
+                <div className="relative aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 overflow-hidden">
                   {product.images?.[0]?.image?.asset ? (
                     <Image
                       src={urlFor(product.images[0].image).width(400).height(533).url()}
@@ -107,10 +107,13 @@ export default function CatalogueFilter({ categories, produits }: CatalogueFilte
                       <span className="text-charcoal/30 text-sm">Photo produit</span>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-500" />
-                  {!product.disponible && (
-                    <div className="absolute top-4 right-4 bg-charcoal/70 text-white text-xs px-3 py-1 rounded-full">
-                      Indisponible
+                  {product.disponible ? (
+                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-500" />
+                  ) : (
+                    <div className="absolute inset-0 bg-white/50 backdrop-blur-[2px] flex items-center justify-center">
+                      <span className="bg-charcoal text-white text-xs font-semibold uppercase tracking-widest px-6 py-2.5 rounded-full">
+                        &Eacute;puis&eacute;
+                      </span>
                     </div>
                   )}
                   {product.categorie && (
