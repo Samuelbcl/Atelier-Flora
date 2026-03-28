@@ -15,7 +15,6 @@ interface Settings {
 const footerNav = [
   { name: "Accueil", href: "/" },
   { name: "\u00c0 propos", href: "/a-propos" },
-  { name: "Galerie", href: "/galerie" },
   { name: "Catalogue", href: "/catalogue" },
   { name: "Mariage", href: "/mariage" },
   { name: "Contact", href: "/contact" },

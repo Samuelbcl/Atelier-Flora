@@ -30,21 +30,6 @@ export const structure: StructureResolver = (S) =>
               singletonItem(S, 'pageAccueil', 'Accueil'),
               singletonItem(S, 'pageAPropos', 'À propos'),
 
-              // Galerie — sous-menu avec paramètres + collections
-              S.listItem()
-                .title('Galerie')
-                .id('galerie-group')
-                .child(
-                  S.list()
-                    .title('Galerie')
-                    .items([
-                      singletonItem(S, 'pageGalerie', 'Paramètres de la page'),
-                      S.divider(),
-                      S.documentTypeListItem('categorieGalerie').title('Catégories'),
-                      S.documentTypeListItem('photoGalerie').title('Photos'),
-                    ])
-                ),
-
               // Catalogue — sous-menu avec paramètres + collections
               S.listItem()
                 .title('Catalogue')
