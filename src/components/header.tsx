@@ -23,8 +23,19 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
   const [mobileOpen, setMobileOpen] = useState(false);
   const [fleursOpen, setFleursOpen] = useState(false);
   const [mobileFleursOpen, setMobileFleursOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isHome = pathname === "/";
+
+  // Track scroll position
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    onScroll(); // check on mount
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const openFleurs = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -43,15 +54,32 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
 
   const isFleurs = pathname.startsWith("/fleurs");
 
+  // Transparent header only on homepage when not scrolled
+  const isTransparent = isHome && !scrolled && !mobileOpen;
+
   return (
     <>
-      <header className="border-b border-primary/10 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+      <header
+        className={`sticky top-0 z-50 transition-all duration-500 ${
+          isTransparent
+            ? "bg-transparent border-b border-white/10"
+            : "bg-white/95 backdrop-blur-sm border-b border-primary/10 shadow-sm"
+        }`}
+      >
         <nav className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             {logoUrl ? (
-              <img src={logoUrl} alt={siteName} className="max-h-16 max-w-[200px] w-auto object-contain" />
+              <img
+                src={logoUrl}
+                alt={siteName}
+                className={`max-h-16 max-w-[200px] w-auto object-contain transition-all duration-500 ${
+                  isTransparent ? "brightness-0 invert" : ""
+                }`}
+              />
             ) : (
-              <span className="font-serif text-2xl text-secondary tracking-wide">{siteName}</span>
+              <span className={`font-serif text-2xl tracking-wide transition-colors duration-500 ${
+                isTransparent ? "text-white" : "text-secondary"
+              }`}>{siteName}</span>
             )}
           </Link>
 
@@ -64,7 +92,9 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
               <button
                 onClick={() => setFleursOpen(!fleursOpen)}
                 className={`text-sm tracking-wide transition-colors duration-300 flex items-center gap-1.5 py-2 ${
-                  isFleurs ? "text-secondary font-medium" : "text-charcoal/50 hover:text-secondary"
+                  isTransparent
+                    ? isFleurs ? "text-white font-medium" : "text-white/70 hover:text-white"
+                    : isFleurs ? "text-secondary font-medium" : "text-charcoal/50 hover:text-secondary"
                 }`}
               >
                 Fleurs
@@ -75,7 +105,14 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
             </li>
             {navigation.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className={`text-sm tracking-wide transition-colors duration-300 ${pathname === item.href ? "text-secondary font-medium" : "text-charcoal/50 hover:text-secondary"}`}>
+                <Link
+                  href={item.href}
+                  className={`text-sm tracking-wide transition-colors duration-300 ${
+                    isTransparent
+                      ? pathname === item.href ? "text-white font-medium" : "text-white/70 hover:text-white"
+                      : pathname === item.href ? "text-secondary font-medium" : "text-charcoal/50 hover:text-secondary"
+                  }`}
+                >
                   {item.name}
                 </Link>
               </li>
@@ -84,9 +121,9 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
 
           {/* Burger */}
           <button type="button" onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5" aria-label={mobileOpen ? "Fermer" : "Menu"} aria-expanded={mobileOpen}>
-            <span className={`block w-5 h-[1.5px] bg-secondary transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[4.5px]" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-secondary transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-secondary transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[4.5px]" : ""}`} />
+            <span className={`block w-5 h-[1.5px] transition-all duration-300 ${isTransparent ? "bg-white" : "bg-secondary"} ${mobileOpen ? "rotate-45 translate-y-[4.5px]" : ""}`} />
+            <span className={`block w-5 h-[1.5px] transition-all duration-300 ${isTransparent ? "bg-white" : "bg-secondary"} ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-5 h-[1.5px] transition-all duration-300 ${isTransparent ? "bg-white" : "bg-secondary"} ${mobileOpen ? "-rotate-45 -translate-y-[4.5px]" : ""}`} />
           </button>
         </nav>
 
@@ -124,9 +161,7 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
           onMouseEnter={openFleurs}
           onMouseLeave={closeFleurs}
         >
-          {/* Zone de pont invisible (empêche la fermeture entre le bouton et le menu) */}
           <div className="h-0" />
-          {/* Contenu du mega menu */}
           <div className="bg-white border-b border-primary/10 shadow-lg">
             <div className="mx-auto max-w-7xl px-6 py-10 grid grid-cols-3 gap-10">
               <div>
