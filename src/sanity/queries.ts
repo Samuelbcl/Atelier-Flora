@@ -156,13 +156,19 @@ export const CATEGORIES_QUERY = groq`
   }
 `
 
-// Produit par slug
+// Produit par slug (page détail)
 export const PRODUIT_BY_SLUG_QUERY = groq`
   *[_type == "produit" && slug.current == $slug][0]{
-    _id, nom, slug, description, prix, etiquette,
+    _id, nom, slug, descriptionCourte, description, prix, etiquette,
+    tailles[]{ _key, nom, prix, stock },
     images[]{ ${imageFields} },
     categorie->{ _id, nom, slug },
-    disponible, seo
+    disponible, seo,
+    "recommandes": *[_type == "produit" && categorie._ref == ^.categorie._ref && _id != ^._id] | order(ordre asc)[0...4]{
+      _id, nom, slug, prix, etiquette,
+      "catSlug": categorie->slug.current,
+      "firstImage": images[0]{ ${imageFields} }
+    }
   }
 `
 

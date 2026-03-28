@@ -1,4 +1,5 @@
 export const revalidate = 60;
+export const dynamicParams = true;
 
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -71,12 +72,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function FleursCategorePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-
-  // Redirect mariage to its own page
-  if (slug === "mariage") {
-    const { redirect } = await import("next/navigation");
-    redirect("/fleurs/mariage");
-  }
 
   const [categorie, produits] = await Promise.all([
     client.fetch<Categorie | null>(CATEGORIE_BY_SLUG, { slug }),
