@@ -27,28 +27,29 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Pages')
             .items([
-              singletonItem(S, 'pageAccueil', 'Accueil'),
-              singletonItem(S, 'pageAPropos', 'À propos'),
-
-              // Catalogue — sous-menu avec paramètres + collections
+              // Fleurs — sous-menu (comme la nav du site)
               S.listItem()
-                .title('Catalogue')
-                .id('catalogue-group')
+                .title('Fleurs')
+                .id('fleurs-group')
                 .child(
                   S.list()
-                    .title('Catalogue')
+                    .title('Fleurs')
                     .items([
-                      singletonItem(S, 'pageCatalogue', 'Paramètres de la page'),
-                      S.divider(),
                       S.documentTypeListItem('categorie').title('Catégories'),
                       S.documentTypeListItem('produit').title('Produits'),
+                      S.divider(),
+                      singletonItem(S, 'pageMariage', 'Page Mariage'),
                     ])
                 ),
-
-              singletonItem(S, 'pageMariage', 'Mariage'),
+              singletonItem(S, 'pageAccueil', 'Accueil'),
+              singletonItem(S, 'pageAPropos', 'À propos'),
               singletonItem(S, 'pageContact', 'Contact'),
             ])
         ),
+      S.divider(),
+
+      // Témoignages
+      S.documentTypeListItem('temoignage').title('Témoignages'),
       S.divider(),
 
       // Réglages

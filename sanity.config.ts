@@ -9,7 +9,6 @@ import { ConfirmPublishAction } from '@/sanity/actions/confirm-publish'
 const SINGLETONS = [
   'pageAccueil',
   'pageAPropos',
-  'pageCatalogue',
   'pageContact',
   'pageMariage',
   'settings',
