@@ -60,11 +60,12 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
   return (
     <>
       <header
-        className={`sticky top-0 z-50 transition-all duration-500 ${
-          isTransparent
-            ? "bg-transparent"
-            : "bg-white/95 backdrop-blur-sm border-b border-primary/10 shadow-sm"
-        }`}
+        className="sticky top-0 z-50 transition-[background-color,box-shadow] duration-500"
+        style={{
+          backgroundColor: isTransparent ? "transparent" : "rgba(255,255,255,0.95)",
+          backdropFilter: isTransparent ? "none" : "blur(4px)",
+          boxShadow: isTransparent ? "none" : "0 1px 0 rgba(180,158,122,0.1), 0 1px 3px rgba(0,0,0,0.04)",
+        }}
       >
         <nav className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
           <Link href="/" className="flex items-center">
