@@ -165,3 +165,27 @@ export const PRODUIT_BY_SLUG_QUERY = groq`
     disponible, seo
   }
 `
+
+// Page Mariage
+export const PAGE_MARIAGE_QUERY = groq`
+  *[_type == "pageMariage"][0]{
+    ${heroFields},
+    introTexte,
+    services[]{
+      _key, titre, description,
+      image{ ${imageFields} }
+    },
+    images[]{ ${imageFields} },
+    temoignages[]->{
+      _id, auteur, texte, note, date
+    },
+    contactTitre,
+    contactTexte,
+    seo
+  }
+`
+
+// Tous les slugs produits (pour generateStaticParams)
+export const PRODUIT_SLUGS_QUERY = groq`
+  *[_type == "produit" && defined(slug.current)].slug.current
+`

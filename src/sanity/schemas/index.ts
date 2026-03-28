@@ -4,6 +4,7 @@ import pageAPropos from './documents/page-a-propos'
 import pageGalerie from './documents/page-galerie'
 import pageCatalogue from './documents/page-catalogue'
 import pageContact from './documents/page-contact'
+import pageMariage from './documents/page-mariage'
 import produit from './documents/produit'
 import categorie from './documents/categorie'
 import categorieGalerie from './documents/categorie-galerie'
@@ -28,6 +29,7 @@ export const schemaTypes = [
   pageGalerie,
   pageCatalogue,
   pageContact,
+  pageMariage,
   // Documents — Collections
   produit,
   categorie,

@@ -60,6 +60,7 @@ export const structure: StructureResolver = (S) =>
                     ])
                 ),
 
+              singletonItem(S, 'pageMariage', 'Mariage'),
               singletonItem(S, 'pageContact', 'Contact'),
             ])
         ),

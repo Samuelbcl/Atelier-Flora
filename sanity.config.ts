@@ -12,6 +12,7 @@ const SINGLETONS = [
   'pageGalerie',
   'pageCatalogue',
   'pageContact',
+  'pageMariage',
   'settings',
 ]
 
