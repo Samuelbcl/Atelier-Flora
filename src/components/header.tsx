@@ -67,15 +67,13 @@ export default function Header({ siteName = "Bloom Club", logoUrl }: { siteName?
           boxShadow: isTransparent ? "none" : "0 1px 0 rgba(180,158,122,0.1), 0 1px 3px rgba(0,0,0,0.04)",
         }}
       >
-        <nav className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
+        <nav className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={siteName}
-                className={`max-h-16 max-w-[200px] w-auto object-contain transition-all duration-500 ${
-                  isTransparent ? "brightness-0 invert" : ""
-                }`}
+                className="h-20 w-auto object-contain"
               />
             ) : (
               <span className={`font-serif text-2xl tracking-wide transition-colors duration-500 ${
