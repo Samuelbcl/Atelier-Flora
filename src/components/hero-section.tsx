@@ -31,7 +31,7 @@ export default function HeroSection({ data, defaults, large }: HeroSectionProps)
 
   if (large) {
     return (
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-secondary -mt-[72px]">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-secondary -mt-[80px]">
         {hasImage ? (
           <>
             <Image
