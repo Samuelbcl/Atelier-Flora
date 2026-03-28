@@ -89,11 +89,11 @@ export default async function Mariage() {
               <FadeIn key={service._key} delay={i * 0.1}>
                 <div className="flex gap-6">
                   {service.image?.image?.asset ? (
-                    <div className="w-28 h-28 shrink-0 bg-cream overflow-hidden relative">
+                    <div className="w-28 h-28 shrink-0 bg-white overflow-hidden relative">
                       <Image src={urlFor(service.image.image).width(200).height(200).url()} alt={service.image.alt || service.titre} fill className="object-cover" />
                     </div>
                   ) : (
-                    <div className="w-28 h-28 shrink-0 bg-cream flex items-center justify-center">
+                    <div className="w-28 h-28 shrink-0 bg-white flex items-center justify-center">
                       <div className="w-8 h-[1px] bg-primary" />
                     </div>
                   )}
@@ -131,7 +131,7 @@ export default async function Mariage() {
           ) : (
             <div className="grid grid-cols-2 gap-3">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="aspect-square bg-cream flex items-center justify-center">
+                <div key={i} className="aspect-square bg-white flex items-center justify-center">
                   <span className="text-charcoal/20 text-sm">Photo mariage {i}</span>
                 </div>
               ))}

@@ -33,7 +33,7 @@ export default function Equipe({ equipe }: EquipeProps) {
           {equipe.map((membre, i) => (
             <FadeIn key={membre._key} delay={i * 0.1}>
               <div className="text-center">
-                <div className="aspect-[4/5] bg-cream overflow-hidden relative mb-6">
+                <div className="aspect-[4/5] bg-white overflow-hidden relative mb-6">
                   {membre.photo?.image?.asset ? (
                     <Image
                       src={urlFor(membre.photo.image).width(400).height(500).url()}

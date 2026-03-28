@@ -116,7 +116,7 @@ export default async function FleursCategorePage({ params }: { params: Promise<{
             {produits.map((product, i) => (
               <FadeIn key={product._id} delay={i * 0.05}>
                 <Link href={`/fleurs/${slug}/${product.slug?.current}`} className="group block">
-                  <div className="relative aspect-square bg-cream overflow-hidden">
+                  <div className="relative aspect-square bg-white overflow-hidden">
                     {product.images?.[0]?.image?.asset ? (
                       <Image
                         src={urlFor(product.images[0].image).width(400).height(400).url()}

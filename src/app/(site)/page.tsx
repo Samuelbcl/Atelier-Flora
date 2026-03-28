@@ -108,7 +108,7 @@ export default async function Accueil() {
             {produitsVedettes.map((product, i) => (
               <FadeIn key={product._id} delay={i * 0.1}>
                 <Link href={`/fleurs/${product.catSlug || 'populaire'}/${product.slug?.current}`} className="group block">
-                  <div className="aspect-[3/4] bg-cream overflow-hidden relative">
+                  <div className="aspect-[3/4] bg-white overflow-hidden relative">
                     {product.firstImage?.image?.asset ? (
                       <Image src={urlFor(product.firstImage.image).width(600).height(800).url()} alt={product.firstImage.alt || product.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                     ) : (

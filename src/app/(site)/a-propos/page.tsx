@@ -61,7 +61,7 @@ export default async function APropos() {
               </div>
             )}
           </FadeIn>
-          <FadeIn delay={0.2} className="aspect-[4/5] bg-cream overflow-hidden relative">
+          <FadeIn delay={0.2} className="aspect-[4/5] bg-white overflow-hidden relative">
             {data?.images?.[0]?.image?.asset ? (
               <Image src={urlFor(data.images[0].image).width(600).height(750).url()} alt={data.images[0].alt || ""} fill className="object-cover" />
             ) : (

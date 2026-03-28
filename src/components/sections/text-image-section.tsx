@@ -12,7 +12,7 @@ export default function TextImageSection({ data }: { data: any }) {
   return (
     <section className="py-24 md:py-32" style={bgColor ? { backgroundColor: bgColor } : undefined}>
       <div className={`mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center ${isLeft ? "" : "md:[&>:first-child]:order-2"}`}>
-        <FadeIn className="aspect-[4/5] bg-cream overflow-hidden relative">
+        <FadeIn className="aspect-[4/5] bg-white overflow-hidden relative">
           {data.image?.image?.asset ? (
             <Image src={urlFor(data.image.image).width(600).height(750).url()} alt={data.image.alt || ""} fill className="object-cover" />
           ) : (

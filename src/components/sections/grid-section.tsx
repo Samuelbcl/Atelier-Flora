@@ -41,14 +41,14 @@ function GridCard({ item }: { item: any }) {
   return (
     <div>
       {item.image?.image?.asset ? (
-        <div className="aspect-square bg-cream overflow-hidden relative">
+        <div className="aspect-square bg-white overflow-hidden relative">
           <Image src={urlFor(item.image.image).width(400).height(400).url()} alt={item.image.alt || item.titre} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
           {item.badge && (
             <span className="absolute top-3 left-3 bg-secondary text-white text-xs font-semibold uppercase tracking-wider px-3 py-1">{item.badge}</span>
           )}
         </div>
       ) : (
-        <div className="aspect-square bg-cream flex items-center justify-center">
+        <div className="aspect-square bg-white flex items-center justify-center">
           <div className="w-10 h-[1px] bg-primary" />
         </div>
       )}

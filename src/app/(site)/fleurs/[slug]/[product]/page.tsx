@@ -89,7 +89,7 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
           {/* Colonne gauche — Image */}
           <FadeIn>
             {produit.images?.[0]?.image?.asset ? (
-              <div className="aspect-[3/4] bg-cream overflow-hidden relative">
+              <div className="aspect-[3/4] bg-white overflow-hidden relative">
                 <Image
                   src={urlFor(produit.images[0].image).width(1000).height(1333).url()}
                   alt={produit.images[0].alt || produit.nom}
@@ -104,7 +104,7 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
                 )}
               </div>
             ) : (
-              <div className="aspect-[3/4] bg-cream flex items-center justify-center">
+              <div className="aspect-[3/4] bg-white flex items-center justify-center">
                 <span className="text-charcoal/20">Photo du produit</span>
               </div>
             )}
@@ -208,7 +208,7 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
               {produit.recommandes.map((rec, i) => (
                 <FadeIn key={rec._id} delay={i * 0.05}>
                   <Link href={`/fleurs/${rec.catSlug}/${rec.slug?.current}`} className="group block">
-                    <div className="aspect-square bg-cream overflow-hidden relative">
+                    <div className="aspect-square bg-white overflow-hidden relative">
                       {rec.firstImage?.image?.asset ? (
                         <Image src={urlFor(rec.firstImage.image).width(300).height(300).url()} alt={rec.firstImage.alt || rec.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                       ) : (
