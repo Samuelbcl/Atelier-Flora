@@ -121,7 +121,7 @@ export default function Header({ siteName = "Bloom Club", logoUrl, settings }: H
         <nav className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             {logoUrl ? (
-              <img src={logoUrl} alt={siteName} className="h-12 w-auto object-contain" />
+              <img src={logoUrl} alt={siteName} className="h-20 w-auto object-contain -my-4" />
             ) : (
               <span className={`font-serif text-2xl tracking-wide transition-colors duration-500 ${isTransparent ? "text-white" : "text-secondary"}`}>
                 {siteName}
