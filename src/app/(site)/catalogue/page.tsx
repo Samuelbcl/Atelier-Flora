@@ -10,7 +10,7 @@ import CatalogueFilter from "@/components/catalogue-filter";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SA = any;
 
-interface Categorie { _id: string; nom: string; slug: { current: string }; description: string | null; image: { image: SA; alt: string } | null }
+interface Categorie { _id: string; nom: string; slug: { current: string }; description: string | null; contenuSEO: SA }
 interface Produit { _id: string; nom: string; slug: { current: string }; prix: number | null; etiquette: string | null; images: Array<{ image: SA; alt: string }>; categorie: { _id: string; nom: string } | null; disponible: boolean }
 interface PageCatalogue { hero: SA | null; infosCommande: Array<{ _key: string; icone: string; titre: string; texte: string }> | null; cta: SA | null; seo: { metaTitre: string | null; metaDescription: string | null } | null }
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/sanity/image";
+import PortableTextRenderer from "@/components/portable-text-renderer";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SA = any;
@@ -13,7 +14,7 @@ interface Categorie {
   nom: string;
   slug: { current: string };
   description: string | null;
-  image: { image: SA; alt: string } | null;
+  contenuSEO: SA;
 }
 
 interface Produit {
@@ -38,6 +39,10 @@ export default function CatalogueFilter({ categories, produits }: CatalogueFilte
   const filtered = activeCategory
     ? produits.filter((p) => p.categorie?._id === activeCategory)
     : produits;
+
+  const activeCat = activeCategory
+    ? categories.find((c) => c._id === activeCategory)
+    : null;
 
   return (
     <>
@@ -79,9 +84,7 @@ export default function CatalogueFilter({ categories, produits }: CatalogueFilte
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between mb-10">
             <h2 className="font-serif text-2xl text-secondary font-normal">
-              {activeCategory
-                ? categories.find((c) => c._id === activeCategory)?.nom || "Produits"
-                : "Tous nos produits"}
+              {activeCat?.nom || "Tous nos produits"}
             </h2>
             <p className="text-charcoal/40 text-sm">
               {filtered.length} cr&eacute;ation{filtered.length > 1 ? "s" : ""}
@@ -147,6 +150,15 @@ export default function CatalogueFilter({ categories, produits }: CatalogueFilte
           )}
         </div>
       </section>
+
+      {/* Contenu SEO de la catégorie active */}
+      {activeCat?.contenuSEO && (
+        <section className="py-16 md:py-24 bg-white border-t border-primary/10">
+          <div className="mx-auto max-w-3xl px-6">
+            <PortableTextRenderer value={activeCat.contenuSEO} />
+          </div>
+        </section>
+      )}
     </>
   );
 }

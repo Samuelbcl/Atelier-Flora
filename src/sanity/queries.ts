@@ -151,8 +151,7 @@ export const PRODUITS_QUERY = groq`
 // Toutes les catégories
 export const CATEGORIES_QUERY = groq`
   *[_type == "categorie"] | order(ordre asc){
-    _id, nom, slug, description,
-    image{ ${imageFields} }
+    _id, nom, slug, description, contenuSEO
   }
 `
 
