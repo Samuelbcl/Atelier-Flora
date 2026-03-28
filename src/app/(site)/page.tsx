@@ -9,18 +9,19 @@ import PortableTextRenderer from "@/components/portable-text-renderer";
 import HeroSection from "@/components/hero-section";
 import CtaSection from "@/components/cta-section";
 import Temoignages from "@/components/temoignages";
+import FadeIn from "@/components/fade-in";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type SanityImage = any;
+type SA = any;
 
 interface PageAccueil {
-  hero: { label: string; titre: string; sousTitre: string; image: { image: SanityImage; alt: string }; ctaTexte: string; ctaLien: string } | null;
-  valeurs: Array<{ _key: string; icone: string; titre: string; texte: string }> | null;
+  hero: { label: string; titre: string; sousTitre: string; image: { image: SA; alt: string }; ctaTexte: string; ctaLien: string } | null;
+  valeurs: Array<{ _key: string; titre: string; texte: string }> | null;
   introTitre: string | null;
-  introduction: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-  introImage: { image: SanityImage; alt: string } | null;
+  introduction: SA;
+  introImage: { image: SA; alt: string } | null;
   produitsVedettesTitre: string | null;
-  produitsVedettes: Array<{ _id: string; nom: string; slug: { current: string }; prix: number; etiquette: string | null; firstImage: { image: SanityImage; alt: string } | null }> | null;
+  produitsVedettes: Array<{ _id: string; nom: string; slug: { current: string }; prix: number; etiquette: string | null; firstImage: { image: SA; alt: string } | null }> | null;
   temoignagesTitre: string | null;
   temoignagesAffiches: Array<{ _id: string; auteur: string; texte: string; note: number | null; date: string | null }> | null;
   cta: { titre: string; texte: string; boutonTexte: string; boutonLien: string } | null;
@@ -51,80 +52,83 @@ export default async function Accueil() {
       />
 
       {/* Valeurs */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            {valeurs.map((item) => (
-              <div key={item._key} className="text-center px-4">
-                <h3 className="font-serif text-xl text-primary mb-3">{item.titre}</h3>
-                <p className="text-charcoal/60 leading-relaxed text-sm">{item.texte}</p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
+            {valeurs.map((item, i) => (
+              <FadeIn key={item._key} delay={i * 0.1} className="text-center px-4">
+                <div className="w-10 h-[1px] bg-primary mx-auto mb-6" />
+                <h3 className="font-serif text-xl text-secondary mb-4">{item.titre}</h3>
+                <p className="text-charcoal/50 leading-relaxed text-sm">{item.texte}</p>
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
       {/* Introduction */}
-      <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center overflow-hidden relative">
+      <section className="py-24 md:py-32 bg-cream">
+        <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <FadeIn className="aspect-[4/5] bg-white overflow-hidden relative">
             {data?.introImage?.image?.asset ? (
               <Image src={urlFor(data.introImage.image).width(600).height(750).url()} alt={data.introImage.alt || ""} fill className="object-cover" />
             ) : (
-              <span className="text-charcoal/30 text-sm">Photo de l&rsquo;atelier</span>
+              <div className="flex items-center justify-center h-full"><span className="text-charcoal/20 text-sm">Photo de l&rsquo;atelier</span></div>
             )}
-          </div>
-          <div>
-            <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-3">Notre histoire</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-primary leading-tight">
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-6">Notre histoire</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-secondary font-normal leading-tight">
               {data?.introTitre || "L\u2019art floral au service de vos \u00e9motions"}
             </h2>
             {data?.introduction ? (
               <div className="mt-6"><PortableTextRenderer value={data.introduction} /></div>
             ) : (
-              <p className="mt-6 text-charcoal/60 leading-relaxed">
+              <p className="mt-6 text-charcoal/50 leading-relaxed">
                 N&eacute; d&rsquo;une passion pour la beaut&eacute; &eacute;ph&eacute;m&egrave;re des fleurs, Atelier Flora est un espace de cr&eacute;ation o&ugrave; chaque composition raconte une histoire.
               </p>
             )}
-            <Link href="/a-propos" className="mt-8 inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-300">
-              En savoir plus <span aria-hidden="true">&rarr;</span>
+            <Link href="/a-propos" className="mt-8 inline-block text-sm font-semibold uppercase tracking-[0.1em] text-secondary border-b border-secondary pb-1 hover:text-primary hover:border-primary transition-colors duration-300">
+              En savoir plus
             </Link>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* Produits vedettes */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center mb-16">
-            <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-3">S&eacute;lection</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-primary">
+          <FadeIn className="text-center mb-16">
+            <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-4">S&eacute;lection</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-secondary font-normal">
               {data?.produitsVedettesTitre || "Nos cr\u00e9ations phares"}
             </h2>
-          </div>
+          </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {produitsVedettes.map((product) => (
-              <Link key={product._id} href={`/catalogue/${product.slug?.current}`} className="group">
-                <div className="aspect-[3/4] rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 overflow-hidden relative">
-                  {product.firstImage?.image?.asset ? (
-                    <Image src={urlFor(product.firstImage.image).width(600).height(800).url()} alt={product.firstImage.alt || product.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  ) : (
-                    <div className="flex items-center justify-center h-full"><span className="text-charcoal/30 text-sm">Photo produit</span></div>
-                  )}
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-all duration-500" />
-                </div>
-                <div className="mt-4">
-                  <h3 className="font-serif text-lg text-charcoal group-hover:text-primary transition-colors duration-300">{product.nom}</h3>
-                  {product.prix && <p className="text-secondary font-medium mt-1">{product.prix}&nbsp;&euro;</p>}
-                </div>
-              </Link>
+            {produitsVedettes.map((product, i) => (
+              <FadeIn key={product._id} delay={i * 0.1}>
+                <Link href={`/catalogue/${product.slug?.current}`} className="group block">
+                  <div className="aspect-[3/4] bg-cream overflow-hidden relative">
+                    {product.firstImage?.image?.asset ? (
+                      <Image src={urlFor(product.firstImage.image).width(600).height(800).url()} alt={product.firstImage.alt || product.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                    ) : (
+                      <div className="flex items-center justify-center h-full"><span className="text-charcoal/20 text-sm">Photo produit</span></div>
+                    )}
+                    <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/10 transition-all duration-500" />
+                  </div>
+                  <div className="mt-5">
+                    <h3 className="font-serif text-lg text-secondary group-hover:text-primary transition-colors duration-300">{product.nom}</h3>
+                    {product.prix && <p className="text-primary font-medium mt-1">{product.prix}&nbsp;&euro;</p>}
+                  </div>
+                </Link>
+              </FadeIn>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Link href="/catalogue" className="border border-primary/30 text-primary px-8 py-4 rounded-full font-medium hover:bg-primary/5 transition-all duration-300">
+          <FadeIn className="text-center mt-14">
+            <Link href="/catalogue" className="inline-block border border-secondary text-secondary px-10 py-4 text-sm font-semibold uppercase tracking-[0.15em] hover:bg-secondary hover:text-white transition-all duration-300">
               Voir tout le catalogue
             </Link>
-          </div>
+          </FadeIn>
         </div>
       </section>
 

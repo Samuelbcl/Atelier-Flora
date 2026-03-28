@@ -1,3 +1,5 @@
+import FadeIn from "@/components/fade-in";
+
 interface Temoignage {
   _id: string;
   auteur: string;
@@ -15,30 +17,29 @@ export default function Temoignages({ titre, temoignages }: TemoignagesProps) {
   if (temoignages.length === 0) return null;
 
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="text-center mb-16">
-          <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-3">
+        <FadeIn className="text-center mb-16">
+          <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-4">
             T&eacute;moignages
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl text-primary">
+          <h2 className="font-serif text-3xl md:text-4xl text-secondary font-normal">
             {titre || "Ce que disent nos clients"}
           </h2>
-        </div>
+        </FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {temoignages.map((t) => (
-            <div
-              key={t._id}
-              className="p-8 rounded-2xl bg-white border border-primary/5 shadow-sm"
-            >
-              <div className="w-8 h-[2px] bg-secondary mb-6" />
-              <p className="text-charcoal/70 leading-relaxed text-sm italic mb-6">
-                &laquo; {t.texte} &raquo;
-              </p>
-              <div className="border-t border-primary/5 pt-4">
-                <p className="font-serif text-primary text-sm">{t.auteur}</p>
+          {temoignages.map((t, i) => (
+            <FadeIn key={t._id} delay={i * 0.1}>
+              <div className="p-8 bg-white border border-primary/10">
+                <div className="w-10 h-[1px] bg-primary mb-6" />
+                <p className="text-charcoal/70 leading-relaxed text-sm italic mb-6">
+                  &laquo; {t.texte} &raquo;
+                </p>
+                <div className="border-t border-primary/10 pt-4">
+                  <p className="font-serif text-secondary text-sm">{t.auteur}</p>
+                </div>
               </div>
-            </div>
+            </FadeIn>
           ))}
         </div>
       </div>

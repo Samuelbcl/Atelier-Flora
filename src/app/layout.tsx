@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Prata } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,8 +7,9 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+const prata = Prata({
+  variable: "--font-prata",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -45,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="fr" className={`${inter.variable} ${prata.variable}`}>
       <body className="min-h-screen flex flex-col bg-cream text-charcoal font-sans antialiased">
         {children}
       </body>

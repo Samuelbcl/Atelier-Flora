@@ -5,6 +5,7 @@ import { client } from "@/sanity/client";
 import { SETTINGS_QUERY, PAGE_CONTACT_QUERY } from "@/sanity/queries";
 import HeroSection from "@/components/hero-section";
 import ContactForm from "@/components/contact-form";
+import FadeIn from "@/components/fade-in";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SA = any;
@@ -43,53 +44,49 @@ export default async function Contact() {
         defaults={{ label: "Parlons fleurs", titre: "Contactez-nous", sousTitre: "Une question, une commande sur mesure ou un \u00e9v\u00e9nement \u00e0 fleurir ? Nous sommes \u00e0 votre \u00e9coute." }}
       />
 
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <section className="py-24 md:py-32">
+        <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 lg:grid-cols-5 gap-16">
           {/* Informations */}
-          <div className="lg:col-span-2 space-y-8">
+          <FadeIn className="lg:col-span-2 space-y-10">
             <div>
-              <h2 className="font-serif text-2xl text-primary mb-6">Nos coordonn&eacute;es</h2>
-              <div className="space-y-6">
+              <h2 className="font-serif text-2xl text-secondary mb-8 font-normal">Nos coordonn&eacute;es</h2>
+              <div className="space-y-8">
                 <div>
-                  <p className="font-serif text-lg text-primary mb-1">Adresse</p>
-                  <p className="text-charcoal/60 text-sm leading-relaxed whitespace-pre-line">{settings?.adresse || "12 rue des Fleurs\n75004 Paris"}</p>
+                  <p className="font-serif text-lg text-secondary mb-2">Adresse</p>
+                  <p className="text-charcoal/50 text-sm leading-relaxed whitespace-pre-line">{settings?.adresse || "12 rue des Fleurs\n75004 Paris"}</p>
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-primary mb-1">T&eacute;l&eacute;phone</p>
-                  <p className="text-charcoal/60 text-sm">{settings?.telephone || "01 23 45 67 89"}</p>
+                  <p className="font-serif text-lg text-secondary mb-2">T&eacute;l&eacute;phone</p>
+                  <p className="text-charcoal/50 text-sm">{settings?.telephone || "01 23 45 67 89"}</p>
                 </div>
                 <div>
-                  <p className="font-serif text-lg text-primary mb-1">Email</p>
-                  <p className="text-charcoal/60 text-sm">{settings?.email || "contact@atelier-flora.fr"}</p>
+                  <p className="font-serif text-lg text-secondary mb-2">Email</p>
+                  <p className="text-charcoal/50 text-sm">{settings?.email || "contact@atelier-flora.fr"}</p>
                 </div>
               </div>
             </div>
 
             {pageData?.introTexte && (
-              <p className="text-charcoal/60 text-sm leading-relaxed">{pageData.introTexte}</p>
+              <p className="text-charcoal/50 text-sm leading-relaxed">{pageData.introTexte}</p>
             )}
 
             <div>
-              <h3 className="font-serif text-xl text-primary mb-4">Horaires</h3>
+              <p className="font-serif text-lg text-secondary mb-4">Horaires</p>
               <div className="space-y-2 text-sm">
                 {horaires.map((item) => (
-                  <div key={item._key} className="flex justify-between py-2 border-b border-primary/5">
-                    <span className="text-charcoal/70">{item.jour}</span>
-                    <span className="font-medium text-charcoal">{item.heures}</span>
+                  <div key={item._key} className="flex justify-between py-3 border-b border-primary/10">
+                    <span className="text-charcoal/50">{item.jour}</span>
+                    <span className="font-medium text-secondary">{item.heures}</span>
                   </div>
                 ))}
               </div>
             </div>
-
-            <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/10 flex items-center justify-center">
-              <span className="text-charcoal/30 text-sm">Carte Google Maps</span>
-            </div>
-          </div>
+          </FadeIn>
 
           {/* Formulaire */}
-          <div className="lg:col-span-3">
+          <FadeIn delay={0.2} className="lg:col-span-3">
             <ContactForm sujets={sujets} />
-          </div>
+          </FadeIn>
         </div>
       </section>
     </>

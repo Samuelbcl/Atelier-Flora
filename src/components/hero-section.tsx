@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/image";
+import FadeIn from "@/components/fade-in";
 
 interface HeroData {
   label?: string | null;
@@ -30,7 +31,7 @@ export default function HeroSection({ data, defaults, large }: HeroSectionProps)
 
   if (large) {
     return (
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/10 via-cream to-secondary/10">
+      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-secondary">
         {hasImage ? (
           <>
             <Image
@@ -43,55 +44,52 @@ export default function HeroSection({ data, defaults, large }: HeroSectionProps)
             <div className="absolute inset-0 bg-black/40" />
           </>
         ) : (
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-primary/30 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/30 rounded-full blur-3xl" />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-secondary to-charcoal" />
         )}
-        <div className="relative mx-auto max-w-4xl px-6 text-center">
+        <FadeIn className="relative mx-auto max-w-4xl px-6 text-center">
           {label && (
-            <p className={`font-medium tracking-widest uppercase text-sm mb-4 ${hasImage ? "text-white/70" : "text-secondary"}`}>
+            <p className="text-primary-light font-medium tracking-[0.2em] uppercase text-sm mb-6">
               {label}
             </p>
           )}
-          <h1 className={`font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-tight ${hasImage ? "text-white" : "text-primary"}`}>
+          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white font-normal leading-tight">
             {titre}
           </h1>
           {sousTitre && (
-            <p className={`mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed ${hasImage ? "text-white/80" : "text-charcoal/60"}`}>
+            <p className="mt-6 text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed">
               {sousTitre}
             </p>
           )}
           {data?.ctaTexte && data.ctaLien && (
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-10">
               <Link
                 href={data.ctaLien}
-                className={`px-8 py-4 rounded-full font-medium transition-all duration-300 hover:shadow-lg ${hasImage ? "bg-white text-primary hover:bg-cream hover:shadow-white/20" : "bg-primary text-white hover:bg-primary-light hover:shadow-primary/20"}`}
+                className="inline-block bg-white text-secondary px-10 py-4 text-sm font-semibold uppercase tracking-[0.15em] hover:bg-primary hover:text-white transition-all duration-300"
               >
                 {data.ctaTexte}
               </Link>
             </div>
           )}
-        </div>
+        </FadeIn>
       </section>
     );
   }
 
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-primary/5 to-cream">
-      <div className="mx-auto max-w-3xl px-6 text-center">
+    <section className="py-24 md:py-32 bg-cream">
+      <FadeIn className="mx-auto max-w-3xl px-6 text-center">
         {label && (
-          <p className="text-secondary font-medium tracking-widest uppercase text-sm mb-4">
+          <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-6">
             {label}
           </p>
         )}
-        <h1 className="font-serif text-4xl md:text-5xl text-primary font-bold leading-tight">
+        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-secondary font-normal leading-tight">
           {titre}
         </h1>
         {sousTitre && (
-          <p className="mt-4 text-charcoal/60 max-w-xl mx-auto">{sousTitre}</p>
+          <p className="mt-6 text-charcoal/60 max-w-xl mx-auto leading-relaxed">{sousTitre}</p>
         )}
-      </div>
+      </FadeIn>
     </section>
   );
 }
