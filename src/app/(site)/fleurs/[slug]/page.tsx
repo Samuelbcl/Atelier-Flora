@@ -66,7 +66,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!cat) return { title: "Cat\u00e9gorie introuvable" };
   return {
     title: cat.nom,
-    description: cat.description || `D\u00e9couvrez nos ${cat.nom.toLowerCase()} chez Atelier Flora, fleuriste \u00e0 Li\u00e8ge.`,
+    description: cat.description || `D\u00e9couvrez nos ${cat.nom.toLowerCase()} chez Bloom Club, fleuriste \u00e0 Li\u00e8ge.`,
   };
 }
 

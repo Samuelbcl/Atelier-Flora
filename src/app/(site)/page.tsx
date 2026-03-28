@@ -47,7 +47,7 @@ export default async function Accueil() {
     <>
       <HeroSection
         data={data?.hero}
-        defaults={{ label: "Fleuriste artisanale \u00e0 Paris", titre: "Atelier Flora", sousTitre: "Des cr\u00e9ations florales uniques, compos\u00e9es avec passion \u00e0 partir de fleurs de saison pour sublimer chaque instant." }}
+        defaults={{ label: "Fleuriste artisanale \u00e0 Paris", titre: "Bloom Club", sousTitre: "Des cr\u00e9ations florales uniques, compos\u00e9es avec passion \u00e0 partir de fleurs de saison pour sublimer chaque instant." }}
         large
       />
 
@@ -85,7 +85,7 @@ export default async function Accueil() {
               <div className="mt-6"><PortableTextRenderer value={data.introduction} /></div>
             ) : (
               <p className="mt-6 text-charcoal/50 leading-relaxed">
-                N&eacute; d&rsquo;une passion pour la beaut&eacute; &eacute;ph&eacute;m&egrave;re des fleurs, Atelier Flora est un espace de cr&eacute;ation o&ugrave; chaque composition raconte une histoire.
+                N&eacute; d&rsquo;une passion pour la beaut&eacute; &eacute;ph&eacute;m&egrave;re des fleurs, Bloom Club est un espace de cr&eacute;ation o&ugrave; chaque composition raconte une histoire.
               </p>
             )}
             <Link href="/a-propos" className="mt-8 inline-block text-sm font-semibold uppercase tracking-[0.1em] text-secondary border-b border-secondary pb-1 hover:text-primary hover:border-primary transition-colors duration-300">

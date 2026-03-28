@@ -32,7 +32,7 @@ const socialLabels: Record<string, string> = {
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const settings: Settings | null = await client.fetch(SETTINGS_QUERY);
-  const siteName = settings?.nomDuSite || "Atelier Flora";
+  const siteName = settings?.nomDuSite || "Bloom Club";
   const logoUrl = settings?.logo?.asset?.url || null;
 
   return (
@@ -66,7 +66,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
               <address className="not-italic text-sm text-charcoal/50 space-y-3">
                 <p className="whitespace-pre-line">{settings?.adresse || "12 rue des Fleurs, 75004 Paris"}</p>
                 <p>{settings?.telephone || "01 23 45 67 89"}</p>
-                <p>{settings?.email || "contact@atelier-flora.fr"}</p>
+                <p>{settings?.email || "contact@bloomclub.be"}</p>
               </address>
               {settings?.reseauxSociaux && settings.reseauxSociaux.length > 0 && (
                 <div className="mt-6 flex gap-4">

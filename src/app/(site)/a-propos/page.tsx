@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const data: PageAPropos | null = await client.fetch(PAGE_A_PROPOS_QUERY);
   return {
     title: data?.seo?.metaTitre || "\u00c0 propos",
-    description: data?.seo?.metaDescription || "D\u00e9couvrez l'histoire d'Atelier Flora, fleuriste artisanale \u00e0 Paris.",
+    description: data?.seo?.metaDescription || "D\u00e9couvrez l'histoire d'Bloom Club, fleuriste artisanale \u00e0 Paris.",
   };
 }
 
@@ -56,7 +56,7 @@ export default async function APropos() {
             ) : (
               <div className="space-y-4 text-charcoal/50 leading-relaxed">
                 <h2 className="font-serif text-2xl md:text-3xl text-secondary mb-6 font-normal">Comment tout a commenc&eacute;</h2>
-                <p>Atelier Flora est n&eacute; en 2020 d&rsquo;un r&ecirc;ve simple : rendre la beaut&eacute; des fleurs accessible &agrave; tous.</p>
+                <p>Bloom Club est n&eacute; en 2020 d&rsquo;un r&ecirc;ve simple : rendre la beaut&eacute; des fleurs accessible &agrave; tous.</p>
                 <p>Notre fondatrice a ouvert les portes de son propre atelier au c&oelig;ur de Paris, dans le Marais.</p>
               </div>
             )}
@@ -127,7 +127,7 @@ export default async function APropos() {
             &laquo; {data?.citationTexte || "Les fleurs ne sont pas seulement belles, elles sont porteuses d\u2019\u00e9motions. C\u2019est ce qui rend notre m\u00e9tier si extraordinaire."} &raquo;
           </blockquote>
           <p className="mt-8 text-white/50 font-medium tracking-wide">
-            &mdash; {data?.citationAuteur || "Clara Dumont, fondatrice d\u2019Atelier Flora"}
+            &mdash; {data?.citationAuteur || "Clara Dumont, fondatrice d\u2019Bloom Club"}
           </p>
         </FadeIn>
       </section>

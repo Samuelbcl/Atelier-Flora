@@ -19,7 +19,7 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
-export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteName?: string; logoUrl?: string | null }) {
+export default function Header({ siteName = "Bloom Club", logoUrl }: { siteName?: string; logoUrl?: string | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [fleursOpen, setFleursOpen] = useState(false);
   const [mobileFleursOpen, setMobileFleursOpen] = useState(false);

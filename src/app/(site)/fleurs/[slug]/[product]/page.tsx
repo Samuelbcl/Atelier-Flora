@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!produit) return { title: "Produit introuvable" };
   return {
     title: produit.seo?.metaTitre || produit.nom,
-    description: produit.seo?.metaDescription || produit.descriptionCourte || `D\u00e9couvrez ${produit.nom} chez Atelier Flora.`,
+    description: produit.seo?.metaDescription || produit.descriptionCourte || `D\u00e9couvrez ${produit.nom} chez Bloom Club.`,
   };
 }
 

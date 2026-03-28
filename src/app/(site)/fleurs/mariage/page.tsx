@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const data: PageMariage | null = await client.fetch(PAGE_MARIAGE_QUERY);
   return {
     title: data?.seo?.metaTitre || "Mariage",
-    description: data?.seo?.metaDescription || "Confiez la d\u00e9coration florale de votre mariage \u00e0 Atelier Flora, fleuriste \u00e0 Li\u00e8ge.",
+    description: data?.seo?.metaDescription || "Confiez la d\u00e9coration florale de votre mariage \u00e0 Bloom Club, fleuriste \u00e0 Li\u00e8ge.",
   };
 }
 
@@ -66,7 +66,7 @@ export default async function Mariage() {
             ) : (
               <div className="text-center space-y-6">
                 <p className="text-charcoal/50 leading-relaxed text-lg">
-                  Ne laissez rien au hasard pour le plus beau jour de votre vie. Confiez la d&eacute;coration florale de votre mariage &agrave; Atelier Flora, fleuriste &eacute;l&eacute;gant et moderne &agrave; Li&egrave;ge.
+                  Ne laissez rien au hasard pour le plus beau jour de votre vie. Confiez la d&eacute;coration florale de votre mariage &agrave; Bloom Club, fleuriste &eacute;l&eacute;gant et moderne &agrave; Li&egrave;ge.
                 </p>
                 <p className="text-charcoal/50 leading-relaxed">
                   Du bouquet de la mari&eacute;e aux d&eacute;corations de la voiture ou du lieu de c&eacute;l&eacute;bration, nous confectionnons, dans le respect de votre budget, tous types de cr&eacute;ations.
@@ -107,7 +107,7 @@ export default async function Mariage() {
           </div>
           <FadeIn className="mt-12 text-center">
             <p className="text-charcoal/50 text-sm leading-relaxed max-w-2xl mx-auto">
-              Confiez la d&eacute;coration florale de votre mariage &agrave; Atelier Flora et profitez d&rsquo;une exp&eacute;rience sans stress, o&ugrave; chaque d&eacute;tail est pris en charge avec soin et expertise.
+              Confiez la d&eacute;coration florale de votre mariage &agrave; Bloom Club et profitez d&rsquo;une exp&eacute;rience sans stress, o&ugrave; chaque d&eacute;tail est pris en charge avec soin et expertise.
             </p>
           </FadeIn>
         </div>
@@ -170,7 +170,7 @@ export default async function Mariage() {
             </FadeIn>
             <div className="space-y-10">
               {[
-                { auteur: "Marie & Thomas", texte: "Atelier Flora a sublim\u00e9 notre mariage. Le bouquet de mari\u00e9e \u00e9tait exactement ce dont je r\u00eavais, et la d\u00e9coration de la salle \u00e9tait \u00e0 couper le souffle." },
+                { auteur: "Marie & Thomas", texte: "Bloom Club a sublim\u00e9 notre mariage. Le bouquet de mari\u00e9e \u00e9tait exactement ce dont je r\u00eavais, et la d\u00e9coration de la salle \u00e9tait \u00e0 couper le souffle." },
                 { auteur: "Sophie & Laurent", texte: "Un professionnalisme remarquable du premier rendez-vous jusqu\u2019au jour J. Chaque d\u00e9tail floral \u00e9tait parfait. Merci pour cette journ\u00e9e magique." },
               ].map((t, i) => (
                 <FadeIn key={i} delay={i * 0.1}>
@@ -199,7 +199,7 @@ export default async function Mariage() {
             </p>
             <div className="space-y-4 text-white/50 text-sm">
               <p>{settings?.telephone || "+32 (0)4 123 45 67"}</p>
-              <p>{settings?.email || "contact@atelier-flora.be"}</p>
+              <p>{settings?.email || "contact@bloomclub.be"}</p>
               <p className="whitespace-pre-line">{settings?.adresse || "Rue des Guillemins, 27\n4000 Li\u00e8ge"}</p>
             </div>
           </FadeIn>

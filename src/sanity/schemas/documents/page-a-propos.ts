@@ -25,7 +25,7 @@ export default defineType({
     defineField({ name: 'images', title: 'Photos de l\'atelier', type: 'array', fieldset: 'galerie', of: [{ type: 'imageWithAlt' }], description: 'Photos affichées en mosaïque. Taille recommandée : 800×800px.' }),
 
     defineField({ name: 'citationTexte', title: 'Texte de la citation', type: 'text', rows: 3, fieldset: 'citation', description: 'Citation inspirante affichée sur fond coloré.' }),
-    defineField({ name: 'citationAuteur', title: 'Auteur', type: 'string', fieldset: 'citation', description: 'Ex: Clara Dumont, fondatrice d\'Atelier Flora.' }),
+    defineField({ name: 'citationAuteur', title: 'Auteur', type: 'string', fieldset: 'citation', description: 'Ex: Clara Dumont, fondatrice de Bloom Club.' }),
 
     defineField({ name: 'seo', title: 'SEO', type: 'seo', fieldset: 'seo' }),
   ],

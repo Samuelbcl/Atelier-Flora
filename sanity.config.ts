@@ -15,8 +15,8 @@ const SINGLETONS = [
 ]
 
 export default defineConfig({
-  name: 'atelier-flora',
-  title: 'Atelier Flora',
+  name: 'bloom-club',
+  title: 'Bloom Club',
   basePath: '/studio',
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,

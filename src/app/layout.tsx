@@ -15,19 +15,19 @@ const prata = Prata({
 
 export const metadata: Metadata = {
   title: {
-    default: "Atelier Flora | Fleuriste Artisanale Paris",
-    template: "%s | Atelier Flora",
+    default: "Bloom Club | Fleuriste Artisanale Paris",
+    template: "%s | Bloom Club",
   },
   description:
-    "Atelier Flora, fleuriste artisanale au coeur de Paris. Bouquets sur mesure, compositions florales et cr\u00e9ations uniques avec des fleurs de saison.",
+    "Bloom Club, fleuriste artisanale au coeur de Paris. Bouquets sur mesure, compositions florales et cr\u00e9ations uniques avec des fleurs de saison.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://atelier-flora.vercel.app"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://bloom-club.vercel.app"
   ),
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "Atelier Flora",
-    title: "Atelier Flora | Fleuriste Artisanale Paris",
+    siteName: "Bloom Club",
+    title: "Bloom Club | Fleuriste Artisanale Paris",
     description:
       "Bouquets sur mesure, compositions florales et cr\u00e9ations uniques avec des fleurs de saison.",
   },

@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const data: PageContact | null = await client.fetch(PAGE_CONTACT_QUERY);
   return {
     title: data?.seo?.metaTitre || "Contact",
-    description: data?.seo?.metaDescription || "Contactez Atelier Flora pour vos commandes sur mesure.",
+    description: data?.seo?.metaDescription || "Contactez Bloom Club pour vos commandes sur mesure.",
   };
 }
 
@@ -61,7 +61,7 @@ export default async function Contact() {
                 </div>
                 <div>
                   <p className="font-serif text-lg text-secondary mb-2">Email</p>
-                  <p className="text-charcoal/50 text-sm">{settings?.email || "contact@atelier-flora.fr"}</p>
+                  <p className="text-charcoal/50 text-sm">{settings?.email || "contact@bloomclub.fr"}</p>
                 </div>
               </div>
             </div>
