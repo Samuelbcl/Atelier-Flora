@@ -188,29 +188,27 @@ export default function Header({ siteName = "Atelier Flora" }: { siteName?: stri
               </ul>
             </div>
 
-            {/* Image placeholders — 2 featured categories */}
-            <div className="aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6">
-              <div className="relative z-10">
-                <Link
-                  href="/fleurs/bouquet-de-saison"
-                  onClick={() => setFleursOpen(false)}
-                  className="font-serif text-xl text-secondary hover:text-primary transition-colors"
-                >
-                  Bouquet de saison
-                </Link>
-              </div>
-            </div>
-            <div className="aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6">
-              <div className="relative z-10">
-                <Link
-                  href="/fleurs/populaire"
-                  onClick={() => setFleursOpen(false)}
-                  className="font-serif text-xl text-secondary hover:text-primary transition-colors"
-                >
-                  Populaire
-                </Link>
-              </div>
-            </div>
+            {/* Image placeholders — 2 featured categories (entire card clickable) */}
+            <Link
+              href="/fleurs/bouquet-de-saison"
+              onClick={() => setFleursOpen(false)}
+              className="group aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6 cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-all duration-300" />
+              <span className="relative z-10 font-serif text-xl text-secondary group-hover:text-primary transition-colors">
+                Bouquet de saison
+              </span>
+            </Link>
+            <Link
+              href="/fleurs/populaire"
+              onClick={() => setFleursOpen(false)}
+              className="group aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6 cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-all duration-300" />
+              <span className="relative z-10 font-serif text-xl text-secondary group-hover:text-primary transition-colors">
+                Populaire
+              </span>
+            </Link>
           </div>
         </div>
       )}
