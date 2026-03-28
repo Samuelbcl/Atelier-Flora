@@ -64,16 +64,16 @@ export default function Header({ siteName = "Bloom Club", logoUrl }: { siteName?
         style={{
           backgroundColor: isTransparent ? "transparent" : "rgba(255,255,255,0.95)",
           backdropFilter: isTransparent ? "none" : "blur(4px)",
-          boxShadow: isTransparent ? "none" : "0 1px 0 rgba(180,158,122,0.1), 0 1px 3px rgba(0,0,0,0.04)",
+          boxShadow: isTransparent ? "none" : "0 1px 2px rgba(0,0,0,0.06)",
         }}
       >
-        <nav className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
+        <nav className="mx-auto max-w-7xl px-6 py-1 flex items-center justify-between">
+          <Link href="/" className="flex items-center -my-2">
             {logoUrl ? (
               <img
                 src={logoUrl}
                 alt={siteName}
-                className="h-28 w-auto object-contain"
+                className="h-16 w-auto object-contain"
               />
             ) : (
               <span className={`font-serif text-2xl tracking-wide transition-colors duration-500 ${
