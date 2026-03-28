@@ -255,21 +255,35 @@ export default function Header({ siteName = "Bloom Club", logoUrl, settings }: H
           >
             <div className="h-0" />
             <div className="bg-white border-b border-primary/10 shadow-lg">
-              <div className="mx-auto max-w-7xl px-6 py-10">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-charcoal/30 mb-5">{item.label}</p>
-                <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-3">
-                  {item.children!.map((child) => (
-                    <li key={child._key}>
-                      <Link
-                        href={child.lien}
-                        onClick={() => setOpenDropdown(null)}
-                        className={`text-base transition-colors duration-200 ${pathname === child.lien ? "text-secondary font-medium" : "text-charcoal/60 hover:text-secondary"}`}
-                      >
-                        {child.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <div className="mx-auto max-w-7xl px-6 py-10 grid grid-cols-3 gap-10">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-charcoal/30 mb-5">{item.label}</p>
+                  <ul className="space-y-3">
+                    {item.children!.map((child) => (
+                      <li key={child._key}>
+                        <Link
+                          href={child.lien}
+                          onClick={() => setOpenDropdown(null)}
+                          className={`text-base transition-colors duration-200 ${pathname === child.lien ? "text-secondary font-medium" : "text-charcoal/60 hover:text-secondary"}`}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {item.children!.length >= 2 && (
+                  <>
+                    <Link href={item.children![2]?.lien || item.children![0].lien} onClick={() => setOpenDropdown(null)} className="group aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6">
+                      <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-all duration-300" />
+                      <span className="relative z-10 font-serif text-xl text-secondary group-hover:text-primary transition-colors">{item.children![2]?.label || item.children![0].label}</span>
+                    </Link>
+                    <Link href={item.children![0].lien} onClick={() => setOpenDropdown(null)} className="group aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6">
+                      <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-all duration-300" />
+                      <span className="relative z-10 font-serif text-xl text-secondary group-hover:text-primary transition-colors">{item.children![0].label}</span>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
