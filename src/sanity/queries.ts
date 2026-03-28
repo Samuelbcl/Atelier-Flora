@@ -212,6 +212,20 @@ export const PAGE_MARIAGE_QUERY = groq`
   }
 `
 
+// Produits vedettes pour le mega menu (1er produit de catégories clés)
+export const MEGA_MENU_PRODUCTS_QUERY = groq`
+  {
+    "populaire": *[_type == "produit" && categorie->slug.current == "populaire" && defined(images)] | order(ordre asc)[0]{
+      nom, "slug": slug.current, "catSlug": categorie->slug.current,
+      "image": images[0]{ ${imageFields} }
+    },
+    "bouquetDeSaison": *[_type == "produit" && categorie->slug.current == "bouquet-de-saison" && defined(images)] | order(ordre asc)[0]{
+      nom, "slug": slug.current, "catSlug": categorie->slug.current,
+      "image": images[0]{ ${imageFields} }
+    }
+  }
+`
+
 // Tous les slugs produits (pour generateStaticParams)
 export const PRODUIT_SLUGS_QUERY = groq`
   *[_type == "produit" && defined(slug.current)].slug.current

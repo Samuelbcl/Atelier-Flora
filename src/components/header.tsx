@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -19,6 +20,14 @@ interface NavItem {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface MegaMenuProduct {
+  nom: string;
+  slug: string;
+  catSlug: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  image: { image: any; alt: string } | null;
+}
+
 interface HeaderProps {
   siteName?: string;
   logoUrl?: string | null;
@@ -31,6 +40,10 @@ interface HeaderProps {
       topBarBgColor?: { hex?: string } | null;
       navigationPrincipale?: NavItem[] | null;
     } | null;
+  } | null;
+  megaMenuProducts?: {
+    populaire?: MegaMenuProduct | null;
+    bouquetDeSaison?: MegaMenuProduct | null;
   } | null;
 }
 
@@ -53,7 +66,7 @@ const defaultNav: NavItem[] = [
   { _key: "contact", label: "Contact", lien: "/contact" },
 ];
 
-export default function Header({ siteName = "Bloom Club", logoUrl, settings }: HeaderProps) {
+export default function Header({ siteName = "Bloom Club", logoUrl, settings, megaMenuProducts }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
@@ -274,14 +287,18 @@ export default function Header({ siteName = "Bloom Club", logoUrl, settings }: H
                 </div>
                 {item.children!.length >= 2 && (
                   <>
-                    <Link href={item.children![2]?.lien || item.children![0].lien} onClick={() => setOpenDropdown(null)} className="group aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6">
-                      <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-all duration-300" />
-                      <span className="relative z-10 font-serif text-xl text-secondary group-hover:text-primary transition-colors">{item.children![2]?.label || item.children![0].label}</span>
-                    </Link>
-                    <Link href={item.children![0].lien} onClick={() => setOpenDropdown(null)} className="group aspect-[4/5] bg-cream overflow-hidden relative flex items-end p-6">
-                      <div className="absolute inset-0 bg-secondary/0 group-hover:bg-secondary/5 transition-all duration-300" />
-                      <span className="relative z-10 font-serif text-xl text-secondary group-hover:text-primary transition-colors">{item.children![0].label}</span>
-                    </Link>
+                    <MegaMenuCard
+                      product={megaMenuProducts?.bouquetDeSaison}
+                      fallbackLabel={item.children![2]?.label || item.children![0].label}
+                      fallbackHref={item.children![2]?.lien || item.children![0].lien}
+                      onClose={() => setOpenDropdown(null)}
+                    />
+                    <MegaMenuCard
+                      product={megaMenuProducts?.populaire}
+                      fallbackLabel={item.children![0].label}
+                      fallbackHref={item.children![0].lien}
+                      onClose={() => setOpenDropdown(null)}
+                    />
                   </>
                 )}
               </div>
@@ -290,5 +307,31 @@ export default function Header({ siteName = "Bloom Club", logoUrl, settings }: H
         );
       })}
     </>
+  );
+}
+
+function MegaMenuCard({ product, fallbackLabel, fallbackHref, onClose }: {
+  product?: MegaMenuProduct | null;
+  fallbackLabel: string;
+  fallbackHref: string;
+  onClose: () => void;
+}) {
+  const href = product ? `/fleurs/${product.catSlug}/${product.slug}` : fallbackHref;
+  const label = product?.nom || fallbackLabel;
+  const imageUrl = product?.image?.image?.asset?.url;
+
+  return (
+    <Link href={href} onClick={onClose} className="group aspect-[4/5] bg-white overflow-hidden relative flex items-end p-6">
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt={product?.image?.alt || label}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+      <span className="relative z-10 font-serif text-xl text-white group-hover:text-primary-light transition-colors">{label}</span>
+    </Link>
   );
 }
