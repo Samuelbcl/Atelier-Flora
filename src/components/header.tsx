@@ -73,7 +73,7 @@ export default function Header({ siteName = "Bloom Club", logoUrl }: { siteName?
               <img
                 src={logoUrl}
                 alt={siteName}
-                className="h-20 w-auto object-contain"
+                className="h-28 w-auto object-contain"
               />
             ) : (
               <span className={`font-serif text-2xl tracking-wide transition-colors duration-500 ${
