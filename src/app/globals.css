@@ -6,6 +6,10 @@
   --color-secondary: #312F22;
   --color-cream: #f3eae0;
   --color-charcoal: #312F22;
+  --color-accent: #B49E7A;
+  --color-surface: #ffffff;
+  --color-text: #312F22;
+  --color-text-muted: #312F2280;
   --font-sans: var(--font-inter);
   --font-serif: var(--font-prata);
 }

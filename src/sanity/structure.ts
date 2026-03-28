@@ -17,8 +17,12 @@ const singletonItem = (
 
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Contenu')
+    .title('Bloom Club')
     .items([
+      // Personnalisation
+      singletonItem(S, 'settings', 'Personnalisation'),
+      S.divider(),
+
       // Pages
       S.listItem()
         .title('Pages')
@@ -27,7 +31,22 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title('Pages')
             .items([
-              // Fleurs — sous-menu (comme la nav du site)
+              singletonItem(S, 'pageAccueil', 'Accueil'),
+              singletonItem(S, 'pageAPropos', 'À propos'),
+              singletonItem(S, 'pageContact', 'Contact'),
+              singletonItem(S, 'pageMariage', 'Mariage'),
+            ])
+        ),
+      S.divider(),
+
+      // Contenu
+      S.listItem()
+        .title('Contenu')
+        .id('contenu')
+        .child(
+          S.list()
+            .title('Contenu')
+            .items([
               S.listItem()
                 .title('Fleurs')
                 .id('fleurs-group')
@@ -37,21 +56,13 @@ export const structure: StructureResolver = (S) =>
                     .items([
                       S.documentTypeListItem('categorie').title('Catégories'),
                       S.documentTypeListItem('produit').title('Produits'),
-                      S.divider(),
-                      singletonItem(S, 'pageMariage', 'Page Mariage'),
                     ])
                 ),
-              singletonItem(S, 'pageAccueil', 'Accueil'),
-              singletonItem(S, 'pageAPropos', 'À propos'),
-              singletonItem(S, 'pageContact', 'Contact'),
+              S.documentTypeListItem('temoignage').title('Témoignages'),
             ])
         ),
       S.divider(),
 
-      // Témoignages
-      S.documentTypeListItem('temoignage').title('Témoignages'),
-      S.divider(),
-
-      // Réglages
-      singletonItem(S, 'settings', 'Réglages du site'),
+      // Pages personnalisées (page builder)
+      S.documentTypeListItem('page').title('Pages personnalisées'),
     ])

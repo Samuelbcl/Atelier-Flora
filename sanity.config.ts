@@ -2,6 +2,7 @@
 
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
+import { colorInput } from '@sanity/color-input'
 import { schemaTypes } from '@/sanity/schemas'
 import { structure } from '@/sanity/structure'
 import { ConfirmPublishAction } from '@/sanity/actions/confirm-publish'
@@ -22,6 +23,7 @@ export default defineConfig({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   plugins: [
     structureTool({ structure }),
+    colorInput(),
   ],
   // Masquer Vision et Releases de la barre de navigation
   tools: (prev) =>

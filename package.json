@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sanity/color-input": "^6.0.4",
     "@sanity/image-url": "^2.1.0",
     "@sanity/vision": "^5.18.0",
     "framer-motion": "^12.38.0",

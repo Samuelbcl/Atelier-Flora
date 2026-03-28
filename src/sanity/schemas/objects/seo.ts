@@ -22,7 +22,8 @@ export default defineType({
       name: 'ogImage',
       title: 'Image Open Graph',
       type: 'image',
-      description: 'Image affichée lors du partage sur les réseaux sociaux',
+      options: { hotspot: true },
+      description: 'Image affichée lors du partage sur les réseaux sociaux (1200×630px recommandé).',
     }),
   ],
 })

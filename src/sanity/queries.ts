@@ -35,14 +35,35 @@ export const SETTINGS_QUERY = groq`
   *[_type == "settings"][0]{
     nomDuSite,
     slogan,
-    logo{ asset->{_id, url} },
+    logo{ asset->{_id, url}, hotspot, crop },
+    favicon{ asset->{_id, url} },
+    couleurs,
+    typographie,
+    headerConfig{
+      style,
+      logoPosition,
+      showTopBar,
+      topBarText,
+      topBarBgColor,
+      navigationPrincipale[]{
+        _key, label, lien, isButton,
+        children[]{ _key, label, lien }
+      }
+    },
+    footerConfig{
+      style,
+      description,
+      copyright,
+      colonnes[]{ _key, titre, liens[]{ _key, label, lien } },
+      reseauxSociaux[]{ _key, plateforme, url }
+    },
     adresse,
     telephone,
     email,
     horaires[]{ _key, jour, heures },
-    reseauxSociaux[]{ _key, plateforme, url },
-    footerDescription,
-    seoGlobal{ metaTitre, metaDescription, ogImage{ asset->{_id, url} } }
+    seoTitleTemplate,
+    seoGlobal{ metaTitre, metaDescription, ogImage{ asset->{_id, url}, hotspot, crop } },
+    fonctionnalites
   }
 `
 
@@ -194,4 +215,29 @@ export const PAGE_MARIAGE_QUERY = groq`
 // Tous les slugs produits (pour generateStaticParams)
 export const PRODUIT_SLUGS_QUERY = groq`
   *[_type == "produit" && defined(slug.current)].slug.current
+`
+
+// Page personnalisée par slug (page builder)
+export const PAGE_BY_SLUG_QUERY = groq`
+  *[_type == "page" && slug.current == $slug][0]{
+    _id, titre, slug,
+    sections[]{
+      _key, _type, ...,
+      image{ ${imageFields} },
+      images[]{ ${imageFields} },
+      items[]{
+        _key, ...,
+        image{ ${imageFields} }
+      },
+      temoignages[]->{
+        _id, auteur, texte, note, date
+      }
+    },
+    seo
+  }
+`
+
+// Tous les slugs de pages personnalisées
+export const PAGE_SLUGS_QUERY = groq`
+  *[_type == "page" && defined(slug.current)].slug.current
 `

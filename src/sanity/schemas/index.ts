@@ -5,6 +5,7 @@ import pageGalerie from './documents/page-galerie'
 import pageCatalogue from './documents/page-catalogue'
 import pageContact from './documents/page-contact'
 import pageMariage from './documents/page-mariage'
+import page from './documents/page'
 import produit from './documents/produit'
 import categorie from './documents/categorie'
 import categorieGalerie from './documents/categorie-galerie'
@@ -22,6 +23,17 @@ import portableText from './objects/portable-text'
 import imageWithAlt from './objects/image-with-alt'
 import seo from './objects/seo'
 
+// Sections (page builder)
+import heroSectionBlock from './sections/hero-section-block'
+import textImageSection from './sections/text-image-section'
+import gridSection from './sections/grid-section'
+import testimonialsSection from './sections/testimonials-section'
+import gallerySection from './sections/gallery-section'
+import ctaBanner from './sections/cta-banner'
+import contactSection from './sections/contact-section'
+import faqSection from './sections/faq-section'
+import dividerSection from './sections/divider-section'
+
 export const schemaTypes = [
   // Documents — Pages
   pageAccueil,
@@ -30,6 +42,7 @@ export const schemaTypes = [
   pageCatalogue,
   pageContact,
   pageMariage,
+  page,
   // Documents — Collections
   produit,
   categorie,
@@ -47,4 +60,14 @@ export const schemaTypes = [
   portableText,
   imageWithAlt,
   seo,
+  // Sections (page builder)
+  heroSectionBlock,
+  textImageSection,
+  gridSection,
+  testimonialsSection,
+  gallerySection,
+  ctaBanner,
+  contactSection,
+  faqSection,
+  dividerSection,
 ]
