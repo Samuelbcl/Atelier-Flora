@@ -62,7 +62,7 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
       <header
         className={`sticky top-0 z-50 transition-all duration-500 ${
           isTransparent
-            ? "bg-transparent border-b border-white/10"
+            ? "bg-transparent"
             : "bg-white/95 backdrop-blur-sm border-b border-primary/10 shadow-sm"
         }`}
       >
