@@ -22,7 +22,9 @@ export default function ContactForm({ sujets }: ContactFormProps) {
   if (status === "sent") {
     return (
       <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-primary/5 text-center">
-        <div className="text-4xl mb-4">{"\u2705"}</div>
+        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+          <div className="w-5 h-5 border-b-2 border-r-2 border-primary rotate-45 -mt-1" />
+        </div>
         <h2 className="font-serif text-2xl text-primary mb-2">Message envoy&eacute; !</h2>
         <p className="text-charcoal/60 text-sm">
           Merci pour votre message. Nous vous r&eacute;pondrons dans les 24 heures.

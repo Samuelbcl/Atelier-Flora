@@ -15,9 +15,9 @@ interface Produit { _id: string; nom: string; slug: { current: string }; prix: n
 interface PageCatalogue { hero: SA | null; infosCommande: Array<{ _key: string; icone: string; titre: string; texte: string }> | null; cta: SA | null; seo: { metaTitre: string | null; metaDescription: string | null } | null }
 
 const defaultInfos = [
-  { _key: "i1", icone: "\u{1F69A}", titre: "Livraison Paris", texte: "Livraison \u00e0 v\u00e9lo dans tout Paris, du mardi au samedi." },
-  { _key: "i2", icone: "\u{1F4AC}", titre: "Sur mesure", texte: "Chaque bouquet peut \u00eatre personnalis\u00e9 selon vos envies et votre budget." },
-  { _key: "i3", icone: "\u{1F381}", titre: "Emballage soign\u00e9", texte: "Papier kraft recycl\u00e9, ruban en coton \u2014 un \u00e9crin naturel pour vos fleurs." },
+  { _key: "i1", titre: "Livraison Paris", texte: "Livraison \u00e0 v\u00e9lo dans tout Paris, du mardi au samedi." },
+  { _key: "i2", titre: "Sur mesure", texte: "Chaque bouquet peut \u00eatre personnalis\u00e9 selon vos envies et votre budget." },
+  { _key: "i3", titre: "Emballage soign\u00e9", texte: "Papier kraft recycl\u00e9, ruban en coton \u2014 un \u00e9crin naturel pour vos fleurs." },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -52,8 +52,7 @@ export default async function Catalogue() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             {infos.map((item) => (
               <div key={item._key} className="px-4">
-                {item.icone && <span className="text-3xl">{item.icone}</span>}
-                <h3 className="font-serif text-lg text-primary mt-3 mb-2">{item.titre}</h3>
+                <h3 className="font-serif text-lg text-primary mb-2">{item.titre}</h3>
                 <p className="text-charcoal/60 text-sm leading-relaxed">{item.texte}</p>
               </div>
             ))}

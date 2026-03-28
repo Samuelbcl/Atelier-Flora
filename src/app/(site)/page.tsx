@@ -27,9 +27,9 @@ interface PageAccueil {
 }
 
 const defaultValeurs = [
-  { _key: "v1", icone: "\u{1F331}", titre: "Fleurs de saison", texte: "Nous travaillons exclusivement avec des fleurs fra\u00eeches et de saison, s\u00e9lectionn\u00e9es aupr\u00e8s de producteurs locaux." },
-  { _key: "v2", icone: "\u{2702}\u{FE0F}", titre: "Fait main", texte: "Chaque bouquet est compos\u00e9 \u00e0 la main dans notre atelier parisien, avec soin et cr\u00e9ativit\u00e9." },
-  { _key: "v3", icone: "\u{1F49A}", titre: "\u00c9co-responsable", texte: "Emballages recycl\u00e9s, circuits courts et z\u00e9ro mousse florale synth\u00e9tique pour un impact minimal." },
+  { _key: "v1", titre: "Fleurs de saison", texte: "Nous travaillons exclusivement avec des fleurs fra\u00eeches et de saison, s\u00e9lectionn\u00e9es aupr\u00e8s de producteurs locaux." },
+  { _key: "v2", titre: "Fait main", texte: "Chaque bouquet est compos\u00e9 \u00e0 la main dans notre atelier parisien, avec soin et cr\u00e9ativit\u00e9." },
+  { _key: "v3", titre: "\u00c9co-responsable", texte: "Emballages recycl\u00e9s, circuits courts et z\u00e9ro mousse florale synth\u00e9tique pour un impact minimal." },
 ];
 
 export default async function Accueil() {
@@ -56,8 +56,7 @@ export default async function Accueil() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
             {valeurs.map((item) => (
               <div key={item._key} className="text-center px-4">
-                {item.icone && <span className="text-4xl">{item.icone}</span>}
-                <h3 className="font-serif text-xl text-primary mt-4 mb-3">{item.titre}</h3>
+                <h3 className="font-serif text-xl text-primary mb-3">{item.titre}</h3>
                 <p className="text-charcoal/60 leading-relaxed text-sm">{item.texte}</p>
               </div>
             ))}

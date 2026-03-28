@@ -11,18 +11,6 @@ interface TemoignagesProps {
   temoignages: Temoignage[];
 }
 
-function Stars({ count }: { count: number }) {
-  return (
-    <div className="flex gap-0.5 mb-3">
-      {Array.from({ length: 5 }, (_, i) => (
-        <span key={i} className={i < count ? "text-secondary" : "text-charcoal/15"}>
-          {"\u2605"}
-        </span>
-      ))}
-    </div>
-  );
-}
-
 export default function Temoignages({ titre, temoignages }: TemoignagesProps) {
   if (temoignages.length === 0) return null;
 
@@ -43,11 +31,13 @@ export default function Temoignages({ titre, temoignages }: TemoignagesProps) {
               key={t._id}
               className="p-8 rounded-2xl bg-white border border-primary/5 shadow-sm"
             >
-              {t.note && <Stars count={t.note} />}
-              <p className="text-charcoal/70 leading-relaxed text-sm italic mb-4">
+              <div className="w-8 h-[2px] bg-secondary mb-6" />
+              <p className="text-charcoal/70 leading-relaxed text-sm italic mb-6">
                 &laquo; {t.texte} &raquo;
               </p>
-              <p className="text-primary font-medium text-sm">{t.auteur}</p>
+              <div className="border-t border-primary/5 pt-4">
+                <p className="font-serif text-primary text-sm">{t.auteur}</p>
+              </div>
             </div>
           ))}
         </div>

@@ -50,26 +50,17 @@ export default async function Contact() {
             <div>
               <h2 className="font-serif text-2xl text-primary mb-6">Nos coordonn&eacute;es</h2>
               <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-sm">{"\uD83D\uDCCD"}</span></div>
-                  <div>
-                    <p className="font-medium text-charcoal mb-1">Adresse</p>
-                    <p className="text-charcoal/60 text-sm leading-relaxed whitespace-pre-line">{settings?.adresse || "12 rue des Fleurs\n75004 Paris"}</p>
-                  </div>
+                <div>
+                  <p className="font-serif text-lg text-primary mb-1">Adresse</p>
+                  <p className="text-charcoal/60 text-sm leading-relaxed whitespace-pre-line">{settings?.adresse || "12 rue des Fleurs\n75004 Paris"}</p>
                 </div>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-sm">{"\uD83D\uDCDE"}</span></div>
-                  <div>
-                    <p className="font-medium text-charcoal mb-1">T&eacute;l&eacute;phone</p>
-                    <p className="text-charcoal/60 text-sm">{settings?.telephone || "01 23 45 67 89"}</p>
-                  </div>
+                <div>
+                  <p className="font-serif text-lg text-primary mb-1">T&eacute;l&eacute;phone</p>
+                  <p className="text-charcoal/60 text-sm">{settings?.telephone || "01 23 45 67 89"}</p>
                 </div>
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0"><span className="text-sm">{"\u2709\uFE0F"}</span></div>
-                  <div>
-                    <p className="font-medium text-charcoal mb-1">Email</p>
-                    <p className="text-charcoal/60 text-sm">{settings?.email || "contact@atelier-flora.fr"}</p>
-                  </div>
+                <div>
+                  <p className="font-serif text-lg text-primary mb-1">Email</p>
+                  <p className="text-charcoal/60 text-sm">{settings?.email || "contact@atelier-flora.fr"}</p>
                 </div>
               </div>
             </div>
