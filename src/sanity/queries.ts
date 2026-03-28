@@ -57,6 +57,7 @@ export const PAGE_ACCUEIL_QUERY = groq`
     produitsVedettesTitre,
     produitsVedettes[]->{
       _id, nom, slug, prix, etiquette,
+      "catSlug": categorie->slug.current,
       "firstImage": images[0]{ ${imageFields} }
     },
     temoignagesTitre,

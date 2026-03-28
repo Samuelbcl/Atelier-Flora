@@ -21,7 +21,7 @@ interface PageAccueil {
   introduction: SA;
   introImage: { image: SA; alt: string } | null;
   produitsVedettesTitre: string | null;
-  produitsVedettes: Array<{ _id: string; nom: string; slug: { current: string }; prix: number; etiquette: string | null; firstImage: { image: SA; alt: string } | null }> | null;
+  produitsVedettes: Array<{ _id: string; nom: string; slug: { current: string }; prix: number; etiquette: string | null; catSlug: string | null; firstImage: { image: SA; alt: string } | null }> | null;
   temoignagesTitre: string | null;
   temoignagesAffiches: Array<{ _id: string; auteur: string; texte: string; note: number | null; date: string | null }> | null;
   cta: { titre: string; texte: string; boutonTexte: string; boutonLien: string } | null;
@@ -107,7 +107,7 @@ export default async function Accueil() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {produitsVedettes.map((product, i) => (
               <FadeIn key={product._id} delay={i * 0.1}>
-                <Link href={`/catalogue/${product.slug?.current}`} className="group block">
+                <Link href={`/fleurs/${product.catSlug || 'populaire'}/${product.slug?.current}`} className="group block">
                   <div className="aspect-[3/4] bg-cream overflow-hidden relative">
                     {product.firstImage?.image?.asset ? (
                       <Image src={urlFor(product.firstImage.image).width(600).height(800).url()} alt={product.firstImage.alt || product.nom} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -125,7 +125,7 @@ export default async function Accueil() {
             ))}
           </div>
           <FadeIn className="text-center mt-14">
-            <Link href="/catalogue" className="inline-block border border-secondary text-secondary px-10 py-4 text-sm font-semibold uppercase tracking-[0.15em] hover:bg-secondary hover:text-white transition-all duration-300">
+            <Link href="/fleurs/populaire" className="inline-block border border-secondary text-secondary px-10 py-4 text-sm font-semibold uppercase tracking-[0.15em] hover:bg-secondary hover:text-white transition-all duration-300">
               Voir tout le catalogue
             </Link>
           </FadeIn>
