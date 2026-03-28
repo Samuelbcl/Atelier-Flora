@@ -5,6 +5,7 @@ import { SETTINGS_QUERY } from "@/sanity/queries";
 
 interface Settings {
   nomDuSite: string | null;
+  logo: { asset: { _id: string; url: string } } | null;
   adresse: string | null;
   telephone: string | null;
   email: string | null;
@@ -32,10 +33,11 @@ const socialLabels: Record<string, string> = {
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const settings: Settings | null = await client.fetch(SETTINGS_QUERY);
   const siteName = settings?.nomDuSite || "Atelier Flora";
+  const logoUrl = settings?.logo?.asset?.url || null;
 
   return (
     <>
-      <Header siteName={siteName} />
+      <Header siteName={siteName} logoUrl={logoUrl} />
       <main className="flex-1">{children}</main>
 
       <footer className="border-t border-primary/10 bg-white">

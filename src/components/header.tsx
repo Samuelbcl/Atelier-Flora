@@ -19,7 +19,7 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
-export default function Header({ siteName = "Atelier Flora" }: { siteName?: string }) {
+export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteName?: string; logoUrl?: string | null }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [fleursOpen, setFleursOpen] = useState(false);
   const [mobileFleursOpen, setMobileFleursOpen] = useState(false);
@@ -47,8 +47,12 @@ export default function Header({ siteName = "Atelier Flora" }: { siteName?: stri
     <>
       <header className="border-b border-primary/10 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
         <nav className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
-          <Link href="/" className="font-serif text-2xl text-secondary tracking-wide">
-            {siteName}
+          <Link href="/" className="flex items-center">
+            {logoUrl ? (
+              <img src={logoUrl} alt={siteName} className="h-10" />
+            ) : (
+              <span className="font-serif text-2xl text-secondary tracking-wide">{siteName}</span>
+            )}
           </Link>
 
           {/* Desktop */}
