@@ -49,7 +49,7 @@ export default function Header({ siteName = "Atelier Flora", logoUrl }: { siteNa
         <nav className="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             {logoUrl ? (
-              <img src={logoUrl} alt={siteName} className="h-10" />
+              <img src={logoUrl} alt={siteName} className="max-h-16 max-w-[200px] w-auto object-contain" />
             ) : (
               <span className="font-serif text-2xl text-secondary tracking-wide">{siteName}</span>
             )}

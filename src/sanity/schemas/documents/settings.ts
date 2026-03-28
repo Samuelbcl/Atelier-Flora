@@ -14,7 +14,7 @@ export default defineType({
   fields: [
     defineField({ name: 'nomDuSite', title: 'Nom du commerce', type: 'string', fieldset: 'identite', description: 'Nom affiché dans l\'en-tête et le pied de page.' }),
     defineField({ name: 'slogan', title: 'Slogan', type: 'string', fieldset: 'identite', description: 'Slogan court (ex: "Fleuriste artisanale à Paris").' }),
-    defineField({ name: 'logo', title: 'Logo', type: 'image', fieldset: 'identite', description: 'Logo de votre boutique (optionnel). Taille recommandée : 200×60px.' }),
+    defineField({ name: 'logo', title: 'Logo', type: 'image', fieldset: 'identite', description: 'Logo de votre boutique (optionnel). Toutes proportions acceptées.' }),
 
     defineField({ name: 'adresse', title: 'Adresse', type: 'text', rows: 2, fieldset: 'contact', description: 'Adresse complète affichée sur le site.' }),
     defineField({ name: 'telephone', title: 'Téléphone', type: 'string', fieldset: 'contact' }),
