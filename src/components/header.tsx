@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { urlFor } from "@/sanity/image";
 
 interface NavChild {
   _key: string;
@@ -318,20 +319,21 @@ function MegaMenuCard({ product, fallbackLabel, fallbackHref, onClose }: {
 }) {
   const href = product ? `/fleurs/${product.catSlug}/${product.slug}` : fallbackHref;
   const label = product?.nom || fallbackLabel;
-  const imageUrl = product?.image?.image?.asset?.url;
+  const hasImage = product?.image?.image?.asset;
 
   return (
     <Link href={href} onClick={onClose} className="group aspect-[4/5] bg-white overflow-hidden relative flex items-end p-6">
-      {imageUrl && (
+      {hasImage && (
         <Image
-          src={imageUrl}
+          src={urlFor(product!.image!.image).width(500).height(625).quality(90).url()}
           alt={product?.image?.alt || label}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          sizes="300px"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-      <span className="relative z-10 font-serif text-xl text-white group-hover:text-primary-light transition-colors">{label}</span>
+      <span className="relative z-10 font-serif text-xl text-white">{label}</span>
     </Link>
   );
 }
