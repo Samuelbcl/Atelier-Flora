@@ -332,8 +332,9 @@ function MegaMenuCard({ product, fallbackLabel, fallbackHref, onClose }: {
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-      <span className="relative z-10 font-serif text-xl text-white">{label}</span>
+      <div className="absolute inset-x-0 bottom-0 bg-white/90 px-4 py-3">
+        <span className="font-serif text-base text-secondary">{label}</span>
+      </div>
     </Link>
   );
 }
