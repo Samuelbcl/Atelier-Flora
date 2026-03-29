@@ -322,19 +322,19 @@ function MegaMenuCard({ product, fallbackLabel, fallbackHref, onClose }: {
   const hasImage = product?.image?.image?.asset;
 
   return (
-    <Link href={href} onClick={onClose} className="group aspect-[4/5] bg-white overflow-hidden relative flex items-end p-6">
-      {hasImage && (
-        <Image
-          src={urlFor(product!.image!.image).width(500).height(625).quality(90).url()}
-          alt={product?.image?.alt || label}
-          fill
-          sizes="300px"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-        />
-      )}
-      <div className="absolute inset-x-0 bottom-0 bg-white/90 px-4 py-3">
-        <span className="font-serif text-base text-secondary">{label}</span>
+    <Link href={href} onClick={onClose} className="group block">
+      <div className="aspect-square bg-white overflow-hidden relative">
+        {hasImage && (
+          <Image
+            src={urlFor(product!.image!.image).width(400).height(400).quality(90).url()}
+            alt={product?.image?.alt || label}
+            fill
+            sizes="300px"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        )}
       </div>
+      <p className="mt-3 font-serif text-base text-secondary group-hover:text-primary transition-colors text-center">{label}</p>
     </Link>
   );
 }
