@@ -323,10 +323,10 @@ function MegaMenuCard({ product, fallbackLabel, fallbackHref, onClose }: {
 
   return (
     <Link href={href} onClick={onClose} className="group block">
-      <div className="aspect-square bg-white overflow-hidden relative">
+      <div className="aspect-[3/4] bg-white overflow-hidden relative">
         {hasImage && (
           <Image
-            src={urlFor(product!.image!.image).width(400).height(400).quality(90).url()}
+            src={urlFor(product!.image!.image).width(400).height(533).quality(90).url()}
             alt={product?.image?.alt || label}
             fill
             sizes="300px"
