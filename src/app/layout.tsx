@@ -56,6 +56,10 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/AtelierFlora.png",
+    apple: "/AtelierFlora.png",
+  },
 };
 
 export default function RootLayout({
