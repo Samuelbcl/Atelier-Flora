@@ -187,17 +187,17 @@ export default async function Mariage() {
       )}
 
       {/* Contact */}
-      <section className="py-24 md:py-32 bg-secondary text-white">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
           <FadeIn>
-            <p className="text-primary-light font-medium tracking-[0.2em] uppercase text-sm mb-4">Rendez-vous</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-normal mb-6">
+            <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-4">Rendez-vous</p>
+            <h2 className="font-serif text-3xl md:text-4xl text-secondary font-normal mb-6">
               {data?.contactTitre || "Nous aimons vous aider"}
             </h2>
-            <p className="text-white/60 leading-relaxed mb-10">
+            <p className="text-charcoal/60 leading-relaxed mb-10">
               {data?.contactTexte || "Prenez rendez-vous pour une consultation personnalis\u00e9e. Nous discuterons de vos envies, de votre th\u00e8me et de votre budget pour cr\u00e9er la d\u00e9coration florale parfaite."}
             </p>
-            <div className="space-y-4 text-white/50 text-sm">
+            <div className="space-y-4 text-charcoal/50 text-sm">
               <p>{settings?.telephone || "+32 (0)4 123 45 67"}</p>
               <p>{settings?.email || "contact@bloomclub.be"}</p>
               <p className="whitespace-pre-line">{settings?.adresse || "Rue des Guillemins, 27\n4000 Li\u00e8ge"}</p>
