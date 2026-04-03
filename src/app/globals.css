@@ -13,3 +13,11 @@
   --font-sans: var(--font-inter);
   --font-serif: var(--font-prata);
 }
+
+/* Masquer la scrollbar */
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
