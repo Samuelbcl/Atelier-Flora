@@ -52,7 +52,7 @@ export default async function Accueil() {
       />
 
       {/* Valeurs */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-32 bg-cream">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
             {valeurs.map((item, i) => (

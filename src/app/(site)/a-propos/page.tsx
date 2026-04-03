@@ -72,7 +72,7 @@ export default async function APropos() {
       </section>
 
       {/* Valeurs */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-32 bg-cream">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn className="text-center mb-16">
             <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-4">Ce qui nous guide</p>

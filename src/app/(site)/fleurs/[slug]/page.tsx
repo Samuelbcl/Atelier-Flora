@@ -83,7 +83,7 @@ export default async function FleursCategorePage({ params }: { params: Promise<{
   return (
     <>
       {/* Hero */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-32 bg-cream">
         <FadeIn className="mx-auto max-w-3xl px-6 text-center">
           <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-6">
             Nos fleurs
@@ -162,7 +162,7 @@ export default async function FleursCategorePage({ params }: { params: Promise<{
 
       {/* Contenu SEO */}
       {categorie.contenuSEO && (
-        <section className="py-16 md:py-24 bg-white border-t border-primary/10">
+        <section className="py-16 md:py-24 bg-cream border-t border-primary/10">
           <div className="mx-auto max-w-3xl px-6">
             <PortableTextRenderer value={categorie.contenuSEO} />
           </div>

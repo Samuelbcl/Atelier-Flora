@@ -44,7 +44,7 @@ export default async function Contact() {
         defaults={{ label: "Parlons fleurs", titre: "Contactez-nous", sousTitre: "Une question, une commande sur mesure ou un \u00e9v\u00e9nement \u00e0 fleurir ? Nous sommes \u00e0 votre \u00e9coute." }}
       />
 
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-32 bg-cream">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 lg:grid-cols-5 gap-16">
           {/* Informations */}
           <FadeIn className="lg:col-span-2 space-y-10">

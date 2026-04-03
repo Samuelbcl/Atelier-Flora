@@ -269,7 +269,7 @@ export default function Header({ siteName = "Bloom Club", logoUrl, settings, meg
           >
             <div className="h-0" />
             <div className="bg-white border-b border-primary/10 shadow-lg">
-              <div className="mx-auto max-w-7xl px-6 py-10 grid grid-cols-3 gap-10">
+              <div className="mx-auto max-w-7xl px-6 py-10 grid grid-cols-3 gap-6">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-charcoal/30 mb-5">{item.label}</p>
                   <ul className="space-y-3">
@@ -323,10 +323,10 @@ function MegaMenuCard({ product, fallbackLabel, fallbackHref, onClose }: {
 
   return (
     <Link href={href} onClick={onClose} className="group block">
-      <div className="aspect-[3/4] bg-white overflow-hidden relative">
+      <div className="aspect-square bg-white overflow-hidden relative">
         {hasImage && (
           <Image
-            src={urlFor(product!.image!.image).width(400).height(533).quality(90).url()}
+            src={urlFor(product!.image!.image).width(400).height(400).quality(90).url()}
             alt={product?.image?.alt || label}
             fill
             sizes="300px"
