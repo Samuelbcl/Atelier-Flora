@@ -59,7 +59,7 @@ export default function Footer({ siteName, settings }: FooterProps) {
   const copyright = footer?.copyright || `${new Date().getFullYear()} ${siteName}. Tous droits réservés.`;
 
   return (
-    <footer className="border-t border-primary/10 bg-white">
+    <footer className="border-t border-primary/10 bg-cream">
       <div className="mx-auto max-w-7xl px-6 py-20">
         <div className={`grid grid-cols-1 gap-12 ${colonnes.length > 0 ? "md:grid-cols-" + (colonnes.length + 2) : "md:grid-cols-3"}`}>
           {/* Brand */}
