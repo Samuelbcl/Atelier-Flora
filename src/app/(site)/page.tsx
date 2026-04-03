@@ -67,7 +67,7 @@ export default async function Accueil() {
       </section>
 
       {/* Introduction */}
-      <section className="py-24 md:py-32 bg-cream">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <FadeIn className="aspect-[4/5] bg-white overflow-hidden relative">
             {data?.introImage?.image?.asset ? (

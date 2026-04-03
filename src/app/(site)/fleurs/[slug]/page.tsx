@@ -83,7 +83,7 @@ export default async function FleursCategorePage({ params }: { params: Promise<{
   return (
     <>
       {/* Hero */}
-      <section className="py-24 md:py-32 bg-cream">
+      <section className="py-24 md:py-32 bg-white">
         <FadeIn className="mx-auto max-w-3xl px-6 text-center">
           <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-6">
             Nos fleurs
@@ -100,7 +100,7 @@ export default async function FleursCategorePage({ params }: { params: Promise<{
       </section>
 
       {/* Produits */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between mb-10">
             <nav className="text-sm text-charcoal/40">

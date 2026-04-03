@@ -48,7 +48,7 @@ export default async function APropos() {
       <HeroSection data={data?.hero} defaults={{ label: "Notre histoire", titre: "La passion des fleurs depuis toujours" }} />
 
       {/* Contenu */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
           <FadeIn>
             {data?.contenu ? (
@@ -95,7 +95,7 @@ export default async function APropos() {
       {data?.equipe && <Equipe equipe={data.equipe} />}
 
       {/* Galerie */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn className="text-center mb-12">
             <h2 className="font-serif text-3xl md:text-4xl text-secondary font-normal">L&rsquo;atelier en images</h2>

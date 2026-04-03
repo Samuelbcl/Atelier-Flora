@@ -58,7 +58,7 @@ export default async function Mariage() {
       />
 
       {/* Introduction */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-3xl px-6">
           <FadeIn>
             {data?.introTexte ? (
@@ -114,7 +114,7 @@ export default async function Mariage() {
       </section>
 
       {/* Galerie photos — carousel style 2x2 */}
-      <section className="py-24 md:py-32">
+      <section className="py-24 md:py-32 bg-white">
         <div className="mx-auto max-w-6xl px-6">
           {data?.images && data.images.length > 0 ? (
             <div className="grid grid-cols-2 gap-3">
@@ -142,7 +142,7 @@ export default async function Mariage() {
 
       {/* Témoignages */}
       {data?.temoignages && data.temoignages.length > 0 ? (
-        <section className="py-24 md:py-32 bg-cream">
+        <section className="py-24 md:py-32 bg-white">
           <div className="mx-auto max-w-4xl px-6">
             <FadeIn className="text-center mb-16">
               <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-4">T&eacute;moignages</p>
@@ -162,7 +162,7 @@ export default async function Mariage() {
           </div>
         </section>
       ) : (
-        <section className="py-24 md:py-32 bg-cream">
+        <section className="py-24 md:py-32 bg-white">
           <div className="mx-auto max-w-4xl px-6">
             <FadeIn className="text-center mb-16">
               <p className="text-primary font-medium tracking-[0.2em] uppercase text-sm mb-4">T&eacute;moignages</p>

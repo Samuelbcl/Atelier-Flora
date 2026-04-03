@@ -84,7 +84,7 @@ export default async function ProduitPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* Produit — 2 colonnes style Lys Royal */}
-      <section className="py-12 md:py-20">
+      <section className="py-12 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           {/* Colonne gauche — Image */}
           <FadeIn>
